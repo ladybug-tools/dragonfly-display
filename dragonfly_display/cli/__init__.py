@@ -5,6 +5,8 @@ import os
 import logging
 import json
 import pickle
+import tempfile
+import uuid
 
 from honeybee_display.attr import FaceAttribute, RoomAttribute
 
@@ -104,8 +106,7 @@ def display():
     'file and the distinction between the two is only for help in coordinating file '
     'extensions (since both .vsf and .json can be acceptable). Also note that '
     'ladybug-vtk must be installed in order for the vtkjs or html options to be usable '
-    'and the html format refers to a web page with the vtkjs file embedded within it. '
-    'The vtkjs and html options also require an explicit --output-file to be specified.',
+    'and the html format refers to a web page with the vtkjs file embedded within it.',
     type=str, default='vsf', show_default=True)
 @click.option(
     '--output-file', help='Optional file to output the JSON string of '
@@ -158,14 +159,16 @@ def model_to_vis_set(
             else:
                 output_file.write(pickle.dumps(vis_set.to_dict()))
         elif output_format in ('vtkjs', 'html'):
-            assert output_file.name != '<stdout>', \
-                'Must specify an --output-file to use --output-format vtkjs.'
-            out_folder, out_file = os.path.split(output_file.name)
-            try:
+            if output_file.name == '<stdout>':  # get a temporary file
+                out_file = str(uuid.uuid4())[:6]
+                out_folder = tempfile.gettempdir()
+            else:
+                out_folder, out_file = os.path.split(output_file.name)
                 if out_file.endswith('.vtkjs'):
                     out_file = out_file[:-6]
                 elif out_file.endswith('.html'):
                     out_file = out_file[:-5]
+            try:
                 if output_format == 'vtkjs':
                     vis_set.to_vtkjs(output_folder=out_folder, file_name=out_file)
                 if output_format == 'html':
@@ -174,6 +177,16 @@ def model_to_vis_set(
                 raise AttributeError(
                     'Ladybug-vtk must be installed in order to use --output-format '
                     'vtkjs.\n{}'.format(ae))
+            if output_file.name == '<stdout>':  # load file contents to stdout
+                out_file_ext = out_file + '.' + output_format
+                out_file_path = os.path.join(out_folder, out_file_ext)
+                if output_format == 'html':
+                    with open(out_file_path, encoding='utf-8') as of:
+                        f_contents = of.read()
+                else:  # vtkjs can only be read as binary
+                    with open(out_file_path, 'rb') as of:
+                        f_contents = of.read()
+                output_file.write(f_contents)
         else:
             raise ValueError('Unrecognized output-format "{}".'.format(output_format))
     except Exception as e:
