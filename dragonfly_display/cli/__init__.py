@@ -187,9 +187,9 @@ def model_to_vis_set(
                 else:  # vtkjs can only be read as binary
                     with open(out_file_path, 'rb') as of:
                         f_contents = of.read()
-                b = base64.b64encode(f_contents)
-                base64_string = b.decode('utf-8')
-                output_file.write(base64_string)
+                    b = base64.b64encode(f_contents)
+                    f_contents = b.decode('utf-8')
+                output_file.write(f_contents)
         else:
             raise ValueError('Unrecognized output-format "{}".'.format(output_format))
     except Exception as e:
