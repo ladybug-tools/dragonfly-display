@@ -21,6 +21,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/ladybug-tools/dragonfly-display",
     packages=setuptools.find_packages(exclude=["tests*"]),
+    include_package_data=True,
     install_requires=requirements,
     extras_require={'full': extras_requirements},
     entry_points={
@@ -29,6 +30,7 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: Implementation :: CPython",
         "License :: OSI Approved :: GNU Affero General Public License v3",
         "Operating System :: OS Independent"
