@@ -6,7 +6,7 @@ def model_to_vis_set(
         model, use_multiplier=True, solve_ceiling_adjacencies=False,
         color_by='type', include_wireframe=True, use_mesh=True,
         hide_color_by=False, room_attrs=None, face_attrs=None,
-        grid_display_mode='Default', hide_grid=True):
+        grid_display_mode='Default', hide_grid=False):
     """Translate a Dragonfly Model to a VisualizationSet.
 
     Args:
@@ -62,7 +62,7 @@ def model_to_vis_set(
             * None
 
         hide_grid: Boolean to note whether the SensorGrid ContextGeometry should be
-            hidden or shown by default. (Default: True).
+            hidden or shown by default. (Default: False).
 
     Returns:
         A VisualizationSet object that represents the model.
