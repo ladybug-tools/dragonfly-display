@@ -9,6 +9,7 @@ import pickle
 import tempfile
 import uuid
 
+from ladybug.color import Color
 from honeybee_display.attr import FaceAttribute, RoomAttribute
 
 from dragonfly.model import Model
@@ -138,7 +139,7 @@ def model_to_vis_set_cli(
         text_labels = not color_attr
         hide_grid = not show_grid
 
-        # pass the input to the function in order to convert the 
+        # pass the input to the function in order to convert the model
         model_to_vis_set(model_file, full_geometry, ceil_adjacency, color_by,
                          exclude_wireframe, faces, hide_color_by,
                          room_attrs, face_attrs, text_labels, grid_display_mode,
@@ -256,6 +257,145 @@ def model_to_vis_set(
         face_attrs=face_attributes, grid_display_mode=grid_display_mode,
         hide_grid=hide_grid)
 
+    # output the VisualizationSet through the CLI
+    return _output_vis_set_to_format(vis_set, output_format, output_file)
+
+
+@display.command('model-comparison-to-vis')
+@click.argument('base-model-file', type=click.Path(
+    exists=True, file_okay=True, dir_okay=False, resolve_path=True))
+@click.argument('incoming-model-file', type=click.Path(
+    exists=True, file_okay=True, dir_okay=False, resolve_path=True))
+@click.option(
+    '--multiplier/--full-geometry', ' /-fg', help='Flag to note if the '
+    'multipliers on each Building story should be passed along to the '
+    'generated Honeybee Room objects or if full geometry objects should be '
+    'written for each story in the building.', default=True, show_default=True)
+@click.option(
+    '--no-ceil-adjacency/--ceil-adjacency', ' /-a', help='Flag to indicate '
+    'whether adjacencies should be solved between interior stories when '
+    'Room2D floor and ceiling geometries are coplanar. This ensures '
+    'that Surface boundary conditions are used instead of Adiabatic ones.',
+    default=True, show_default=True)
+@click.option(
+    '--base-color', '-bc', help='An optional hexadecimal code for the color '
+    'of the base model.', type=str, default='#74eded', show_default=True)
+@click.option(
+    '--incoming-color', '-ic', help='An optional hexadecimal code for the color '
+    'of the incoming model.', type=str, default='#ed7474', show_default=True)
+@click.option(
+    '--output-format', '-of', help='Text for the output format of the resulting '
+    'VisualizationSet File (.vsf). Choose from: vsf, json, pkl, vtkjs, html. Note '
+    'that both vsf and json refer to the the JSON version of the VisualizationSet '
+    'file and the distinction between the two is only for help in coordinating file '
+    'extensions (since both .vsf and .json can be acceptable). Also note that '
+    'ladybug-vtk must be installed in order for the vtkjs or html options to be usable '
+    'and the html format refers to a web page with the vtkjs file embedded within it.',
+    type=str, default='vsf', show_default=True)
+@click.option(
+    '--output-file', help='Optional file to output the he string of the visualization '
+    'file contents. By default, it will be printed out to stdout',
+    type=click.File('w'), default='-', show_default=True)
+def model_comparison_to_vis_set_cli(
+        base_model_file, incoming_model_file, multiplier, no_ceil_adjacency,
+        base_color, incoming_color, output_format, output_file):
+    """Translate two Dragonfly Models to be compared to a VisualizationSet.
+
+    This command can also optionally translate the Dragonfly Model to a .vtkjs file,
+    which can be visualized in the open source Visual ToolKit (VTK) platform.
+
+    \b
+    Args:
+        base_model_file: Full path to a Dragonfly Model (DFJSON or HBpkl) file
+            representing the base model used in the comparison. Typically, this
+            is the model with more data to be kept.
+        incoming_model_file: Full path to a Dragonfly Model (DFJSON or HBpkl) file
+            representing the incoming model used in the comparison. Typically,
+            this is the model with new data to be evaluated against the base model.
+    """
+    try:
+        # process all of the CLI input so that it can be passed to the function
+        full_geometry = not multiplier
+        ceil_adjacency = not no_ceil_adjacency
+
+        # pass the input to the function in order to convert the model
+        model_comparison_to_vis_set(
+            base_model_file, incoming_model_file, full_geometry, ceil_adjacency,
+            base_color, incoming_color, output_format, output_file)
+    except Exception as e:
+        _logger.exception('Failed to translate Model to VisualizationSet.\n{}'.format(e))
+        sys.exit(1)
+    else:
+        sys.exit(0)
+
+
+def model_comparison_to_vis_set(
+    base_model_file, incoming_model_file, full_geometry=False, ceil_adjacency=False,
+    base_color='#74eded', incoming_color='#ed7474',
+    output_format='vsf', output_file=None,
+):
+    """Translate two Honeybee Models to be compared to a VisualizationSet.
+
+    This command can also optionally translate the Honeybee Model to a .vtkjs file,
+    which can be visualized in the open source Visual ToolKit (VTK) platform.
+
+    Args:
+        base_model_file: Full path to a Honeybee Model (HBJSON or HBpkl) file
+            representing the base model used in the comparison. Typically, this
+            is the model with more data to be kept.
+        incoming_model_file: Full path to a Honeybee Model (HBJSON or HBpkl) file
+            representing the incoming model used in the comparison. Typically,
+            this is the model with new data to be evaluated against the base model.
+        full_geometry: Boolean to note if the multipliers on each Story should
+            be passed along to the generated Honeybee Room objects or if full
+            geometry objects should be written for each story in the building.
+        ceil_adjacency: Boolean to indicate whether adjacencies should be solved
+            between interior stories when Room2D floor and ceiling geometries
+            are coplanar. This ensures that Surface boundary conditions are used
+            instead of Adiabatic ones.
+        base_color: An optional hexadecimal code for the color of the base
+            model. (Default: #74eded).
+        incoming_color: An optional hexadecimal code for the color of the incoming
+            model. (Default: #ed7474).
+        output_format: Text for the output format of the resulting VisualizationSet
+            File (.vsf). Choose from: vsf, json, pkl, vtkjs, html. Note that both
+            vsf and json refer to the the JSON version of the VisualizationSet
+            file and the distinction between the two is only for help in
+            coordinating file extensions (since both .vsf and .json can be
+            acceptable). Also note that ladybug-vtk must be installed in order
+            for the vtkjs or html options to be usable and the html format
+            refers to a web page with the vtkjs file embedded within it.
+        output_file: Optional file to output the string of the visualization
+            file contents. If None, the string will simply be returned from
+            this method.
+    """
+    # load the model objects and process the colors from the hex codes
+    base_model = Model.from_file(base_model_file)
+    incoming_model = Model.from_file(incoming_model_file)
+    base_color = Color.from_hex(base_color)
+    incoming_color = Color.from_hex(incoming_color)
+    base_color.a = 128
+    incoming_color.a = 128
+
+    # create the VisualizationSet
+    multiplier = not full_geometry
+    vis_set = base_model.to_vis_set_comparison(
+        incoming_model, multiplier, ceil_adjacency, base_color, incoming_color)
+
+    # output the VisualizationSet through the CLI
+    return _output_vis_set_to_format(vis_set, output_format, output_file)
+
+
+def _output_vis_set_to_format(vis_set, output_format, output_file):
+    """Process a VisualizationSet for output from the CLI.
+
+    Args:
+        vis_set: The VisualizationSet to be output form the CLI.
+        output_format: Text for the output format of the resulting VisualizationSet File.
+        output_file: Optional file to output the string of the visualization
+            file contents. If None, the string will simply be returned from
+            this method.
+    """
     # output the visualization in the correct format
     output_format = output_format.lower()
     if output_format in ('vsf', 'json'):

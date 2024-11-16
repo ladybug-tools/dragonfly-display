@@ -1,5 +1,7 @@
 """Method to translate a Dragonfly Model to a VisualizationSet."""
 from honeybee_display.model import model_to_vis_set as hb_model_to_vis_set
+from honeybee_display.model import model_comparison_to_vis_set as \
+    hb_model_comparison_to_vis_set
 
 
 def model_to_vis_set(
@@ -76,3 +78,44 @@ def model_to_vis_set(
     return hb_model_to_vis_set(
         hb_model, color_by, include_wireframe, use_mesh, hide_color_by,
         room_attrs, face_attrs, grid_display_mode, hide_grid)
+
+
+def model_comparison_to_vis_set(
+        base_model, incoming_model, use_multiplier=True, solve_ceiling_adjacencies=False,
+        base_color=None, incoming_color=None):
+    """Translate two Dragonfly Models to be compared to a VisualizationSet.
+
+    Args:
+        base_model: A Dragonfly Model object for the base model used in the
+            comparison. Typically, this is the model with more data to be kept.
+        incoming_model: A Dragonfly Model object for the incoming model used in the
+            comparison. Typically, this is the model with new data to be
+            evaluated against the base model.
+        use_multiplier: If True, the multipliers on this Model's Stories will be
+            passed along to the generated Honeybee Room objects, indicating the
+            simulation will be run once for each unique room and then results
+            will be multiplied. If False, full geometry objects will be written
+            for each and every floor in the building that are represented through
+            multipliers and all resulting multipliers will be 1. (Default: True).
+        solve_ceiling_adjacencies: Boolean to note whether adjacencies should be
+            solved between interior stories when Room2D floor and ceiling
+            geometries are coplanar. This ensures that Surface boundary
+            conditions are used instead of Adiabatic ones. Note that this input
+            has no effect when the object_per_model is Story. (Default: False).
+        base_color: An optional ladybug Color to set the color of the base model.
+            If None, a default blue color will be used. (Default: None).
+        incoming_color: An optional ladybug Color to set the color of the incoming model.
+            If None, a default red color will be used. (Default: None).
+    """
+    # create the Honeybee Models from the Dragonfly ones
+    base_model = base_model.to_honeybee(
+        'District', use_multiplier=use_multiplier,
+        solve_ceiling_adjacencies=solve_ceiling_adjacencies,
+        enforce_adj=False, enforce_solid=True)[0]
+    incoming_model = incoming_model.to_honeybee(
+        'District', use_multiplier=use_multiplier,
+        solve_ceiling_adjacencies=solve_ceiling_adjacencies,
+        enforce_adj=False, enforce_solid=True)[0]
+    # convert the Honeybee Model to a VisualizationSet
+    return hb_model_comparison_to_vis_set(
+        base_model, incoming_model, base_color, incoming_color)
