@@ -1,2 +1,2 @@
-honeybee-display>=0.3.6
-dragonfly-core>=1.47.30
+honeybee-display>=0.5.0
+dragonfly-core>=1.57.4
