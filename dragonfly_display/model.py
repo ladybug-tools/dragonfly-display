@@ -5,7 +5,7 @@ from honeybee_display.model import model_comparison_to_vis_set as \
 
 
 def model_to_vis_set(
-        model, use_multiplier=True, solve_ceiling_adjacencies=False,
+        model, use_multiplier=True, add_plenum=False, solve_ceiling_adjacencies=False,
         color_by='type', include_wireframe=True, use_mesh=True,
         hide_color_by=False, room_attrs=None, face_attrs=None,
         grid_display_mode='Default', hide_grid=False):
@@ -19,6 +19,8 @@ def model_to_vis_set(
             will be multiplied. If False, full geometry objects will be written
             for each and every floor in the building that are represented through
             multipliers and all resulting multipliers will be 1. (Default: True).
+        add_plenum: Boolean to indicate whether ceiling/floor plenums should
+            be auto-generated for the Rooms. (Default: False).
         solve_ceiling_adjacencies: Boolean to note whether adjacencies should be
             solved between interior stories when Room2D floor and ceiling
             geometries are coplanar. This ensures that Surface boundary
@@ -71,7 +73,7 @@ def model_to_vis_set(
     """
     # create the Honeybee Model from the Dragonfly one
     hb_model = model.to_honeybee(
-        'District', use_multiplier=use_multiplier,
+        'District', use_multiplier=use_multiplier, add_plenum=add_plenum,
         solve_ceiling_adjacencies=solve_ceiling_adjacencies,
         enforce_adj=False, enforce_solid=True)[0]
     # convert the Honeybee Model to a VisualizationSet
@@ -81,8 +83,8 @@ def model_to_vis_set(
 
 
 def model_comparison_to_vis_set(
-        base_model, incoming_model, use_multiplier=True, solve_ceiling_adjacencies=False,
-        base_color=None, incoming_color=None):
+        base_model, incoming_model, use_multiplier=True, add_plenum=False,
+        solve_ceiling_adjacencies=False, base_color=None, incoming_color=None):
     """Translate two Dragonfly Models to be compared to a VisualizationSet.
 
     Args:
@@ -97,6 +99,8 @@ def model_comparison_to_vis_set(
             will be multiplied. If False, full geometry objects will be written
             for each and every floor in the building that are represented through
             multipliers and all resulting multipliers will be 1. (Default: True).
+        add_plenum: Boolean to indicate whether ceiling/floor plenums should
+            be auto-generated for the Rooms. (Default: False).
         solve_ceiling_adjacencies: Boolean to note whether adjacencies should be
             solved between interior stories when Room2D floor and ceiling
             geometries are coplanar. This ensures that Surface boundary
@@ -109,11 +113,11 @@ def model_comparison_to_vis_set(
     """
     # create the Honeybee Models from the Dragonfly ones
     base_model = base_model.to_honeybee(
-        'District', use_multiplier=use_multiplier,
+        'District', use_multiplier=use_multiplier, add_plenum=add_plenum,
         solve_ceiling_adjacencies=solve_ceiling_adjacencies,
         enforce_adj=False, enforce_solid=True)[0]
     incoming_model = incoming_model.to_honeybee(
-        'District', use_multiplier=use_multiplier,
+        'District', use_multiplier=use_multiplier, add_plenum=add_plenum,
         solve_ceiling_adjacencies=solve_ceiling_adjacencies,
         enforce_adj=False, enforce_solid=True)[0]
     # convert the Honeybee Model to a VisualizationSet

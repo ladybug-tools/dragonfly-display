@@ -35,6 +35,10 @@ def display():
     'generated Honeybee Room objects or if full geometry objects should be '
     'written for each story in the building.', default=True, show_default=True)
 @click.option(
+    '--no-plenum/--plenum', ' /-p', help='Flag to indicate whether '
+    'ceiling/floor plenums should be auto-generated for the Rooms.',
+    default=True, show_default=True)
+@click.option(
     '--no-ceil-adjacency/--ceil-adjacency', ' /-a', help='Flag to indicate '
     'whether adjacencies should be solved between interior stories when '
     'Room2D floor and ceiling geometries are coplanar. This ensures '
@@ -114,7 +118,7 @@ def display():
     'file contents. By default, it will be printed out to stdout.',
     type=click.File('w'), default='-', show_default=True)
 def model_to_vis_set_cli(
-        model_file, multiplier, no_ceil_adjacency,
+        model_file, multiplier, no_plenum, no_ceil_adjacency,
         color_by, wireframe, mesh, show_color_by,
         room_attr, face_attr, color_attr, grid_display_mode, show_grid,
         output_format, output_file):
@@ -130,6 +134,7 @@ def model_to_vis_set_cli(
     try:
         # process all of the CLI input so that it can be passed to the function
         full_geometry = not multiplier
+        add_plenum = not no_plenum
         ceil_adjacency = not no_ceil_adjacency
         exclude_wireframe = not wireframe
         faces = not mesh
@@ -140,7 +145,7 @@ def model_to_vis_set_cli(
         hide_grid = not show_grid
 
         # pass the input to the function in order to convert the model
-        model_to_vis_set(model_file, full_geometry, ceil_adjacency, color_by,
+        model_to_vis_set(model_file, full_geometry, add_plenum, ceil_adjacency, color_by,
                          exclude_wireframe, faces, hide_color_by,
                          room_attrs, face_attrs, text_labels, grid_display_mode,
                          hide_grid, output_format, output_file)
@@ -152,11 +157,11 @@ def model_to_vis_set_cli(
 
 
 def model_to_vis_set(
-    model_file, full_geometry=False, ceil_adjacency=False, color_by='type',
-    exclude_wireframe=False, faces=False, hide_color_by=False,
+    model_file, full_geometry=False, plenum=False, ceil_adjacency=False,
+    color_by='type', exclude_wireframe=False, faces=False, hide_color_by=False,
     room_attr=(), face_attr=(), text_attr=False, grid_display_mode='Default',
     hide_grid=False, output_format='vsf', output_file=None,
-    multiplier=True, no_ceil_adjacency=True, wireframe=True, mesh=True,
+    multiplier=True, no_plenum=True, no_ceil_adjacency=True, wireframe=True, mesh=True,
     show_color_by=True, color_attr=True, show_grid=True
 ):
     """Translate a Dragonfly Model file (.dfjson) to a VisualizationSet file (.vsf).
@@ -169,6 +174,8 @@ def model_to_vis_set(
         full_geometry: Boolean to note if the multipliers on each Story should
             be passed along to the generated Honeybee Room objects or if full
             geometry objects should be written for each story in the building.
+        plenum: Boolean to indicate whether ceiling/floor plenums should
+            be auto-generated for the Rooms. (Default: False).
         ceil_adjacency: Boolean to indicate whether adjacencies should be solved
             between interior stories when Room2D floor and ceiling geometries
             are coplanar. This ensures that Surface boundary conditions are used
@@ -252,10 +259,10 @@ def model_to_vis_set(
     # create the VisualizationSet
     multiplier = not full_geometry
     vis_set = model_obj.to_vis_set(
-        multiplier, ceil_adjacency, color_by=color_by, include_wireframe=wireframe,
-        use_mesh=mesh, hide_color_by=hide_color_by, room_attrs=room_attributes,
-        face_attrs=face_attributes, grid_display_mode=grid_display_mode,
-        hide_grid=hide_grid)
+        multiplier, plenum, ceil_adjacency, color_by=color_by,
+        include_wireframe=wireframe, use_mesh=mesh, hide_color_by=hide_color_by,
+        room_attrs=room_attributes, face_attrs=face_attributes,
+        grid_display_mode=grid_display_mode, hide_grid=hide_grid)
 
     # output the VisualizationSet through the CLI
     return _output_vis_set_to_format(vis_set, output_format, output_file)
@@ -271,6 +278,10 @@ def model_to_vis_set(
     'multipliers on each Building story should be passed along to the '
     'generated Honeybee Room objects or if full geometry objects should be '
     'written for each story in the building.', default=True, show_default=True)
+@click.option(
+    '--no-plenum/--plenum', ' /-p', help='Flag to indicate whether '
+    'ceiling/floor plenums should be auto-generated for the Rooms.',
+    default=True, show_default=True)
 @click.option(
     '--no-ceil-adjacency/--ceil-adjacency', ' /-a', help='Flag to indicate '
     'whether adjacencies should be solved between interior stories when '
@@ -297,7 +308,7 @@ def model_to_vis_set(
     'file contents. By default, it will be printed out to stdout',
     type=click.File('w'), default='-', show_default=True)
 def model_comparison_to_vis_set_cli(
-        base_model_file, incoming_model_file, multiplier, no_ceil_adjacency,
+        base_model_file, incoming_model_file, multiplier, no_plenum, no_ceil_adjacency,
         base_color, incoming_color, output_format, output_file):
     """Translate two Dragonfly Models to be compared to a VisualizationSet.
 
@@ -316,12 +327,13 @@ def model_comparison_to_vis_set_cli(
     try:
         # process all of the CLI input so that it can be passed to the function
         full_geometry = not multiplier
+        add_plenum = not no_plenum
         ceil_adjacency = not no_ceil_adjacency
 
         # pass the input to the function in order to convert the model
         model_comparison_to_vis_set(
-            base_model_file, incoming_model_file, full_geometry, ceil_adjacency,
-            base_color, incoming_color, output_format, output_file)
+            base_model_file, incoming_model_file, full_geometry, add_plenum,
+            ceil_adjacency, base_color, incoming_color, output_format, output_file)
     except Exception as e:
         _logger.exception('Failed to translate Model to VisualizationSet.\n{}'.format(e))
         sys.exit(1)
@@ -330,8 +342,8 @@ def model_comparison_to_vis_set_cli(
 
 
 def model_comparison_to_vis_set(
-    base_model_file, incoming_model_file, full_geometry=False, ceil_adjacency=False,
-    base_color='#74eded', incoming_color='#ed7474',
+    base_model_file, incoming_model_file, full_geometry=False, plenum=False,
+    ceil_adjacency=False, base_color='#74eded', incoming_color='#ed7474',
     output_format='vsf', output_file=None,
 ):
     """Translate two Honeybee Models to be compared to a VisualizationSet.
@@ -349,6 +361,8 @@ def model_comparison_to_vis_set(
         full_geometry: Boolean to note if the multipliers on each Story should
             be passed along to the generated Honeybee Room objects or if full
             geometry objects should be written for each story in the building.
+        plenum: Boolean to indicate whether ceiling/floor plenums should
+            be auto-generated for the Rooms. (Default: False).
         ceil_adjacency: Boolean to indicate whether adjacencies should be solved
             between interior stories when Room2D floor and ceiling geometries
             are coplanar. This ensures that Surface boundary conditions are used
@@ -380,7 +394,7 @@ def model_comparison_to_vis_set(
     # create the VisualizationSet
     multiplier = not full_geometry
     vis_set = base_model.to_vis_set_comparison(
-        incoming_model, multiplier, ceil_adjacency, base_color, incoming_color)
+        incoming_model, multiplier, plenum, ceil_adjacency, base_color, incoming_color)
 
     # output the VisualizationSet through the CLI
     return _output_vis_set_to_format(vis_set, output_format, output_file)
