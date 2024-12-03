@@ -425,7 +425,7 @@ def _output_vis_set_to_format(vis_set, output_format, output_file):
             return pickle.dumps(vis_set.to_dict())
         elif isinstance(output_file, str):
             with open(output_file, 'w') as of:
-                output_file.write(pickle.dumps(vis_set.to_dict()))
+                of.write(pickle.dumps(vis_set.to_dict()))
         elif output_file.name == '<stdout>':
             output_file.write(pickle.dumps(vis_set.to_dict()))
         else:
