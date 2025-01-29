@@ -73,4 +73,3 @@ def test_model_comparison_to_vis_set():
 
     assert isinstance(vtkjs_str, str)
     assert len(vtkjs_str) > 1000
-
