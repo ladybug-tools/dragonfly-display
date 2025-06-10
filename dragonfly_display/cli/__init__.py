@@ -246,6 +246,7 @@ def model_to_vis_set(
     wireframe = not exclude_wireframe
     mesh = not faces
     color_attr = not text_attr
+    reset_coordinates = True if output_format.lower() in ('vtkjs', 'html') else False
 
     # load the room and face attributes
     face_attributes = []
@@ -263,7 +264,8 @@ def model_to_vis_set(
         multiplier, no_plenum, ceil_adjacency, color_by=color_by,
         include_wireframe=wireframe, use_mesh=mesh, hide_color_by=hide_color_by,
         room_attrs=room_attributes, face_attrs=face_attributes,
-        grid_display_mode=grid_display_mode, hide_grid=hide_grid)
+        grid_display_mode=grid_display_mode, hide_grid=hide_grid,
+        reset_coordinates=reset_coordinates)
 
     # output the VisualizationSet through the CLI
     return _output_vis_set_to_format(vis_set, output_format, output_file)
@@ -393,12 +395,13 @@ def model_comparison_to_vis_set(
     incoming_color = Color.from_hex(incoming_color)
     base_color.a = 128
     incoming_color.a = 128
+    reset_coordinates = True if output_format.lower() in ('vtkjs', 'html') else False
 
     # create the VisualizationSet
     multiplier = not full_geometry
     vis_set = base_model.to_vis_set_comparison(
         incoming_model, multiplier, no_plenum, ceil_adjacency,
-        base_color, incoming_color)
+        base_color, incoming_color, reset_coordinates=reset_coordinates)
 
     # output the VisualizationSet through the CLI
     return _output_vis_set_to_format(vis_set, output_format, output_file)

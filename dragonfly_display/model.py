@@ -1,4 +1,5 @@
 """Method to translate a Dragonfly Model to a VisualizationSet."""
+from ladybug_geometry.geometry3d import Point3D
 from honeybee_display.model import model_to_vis_set as hb_model_to_vis_set
 from honeybee_display.model import model_comparison_to_vis_set as \
     hb_model_comparison_to_vis_set
@@ -9,7 +10,7 @@ def model_to_vis_set(
         solve_ceiling_adjacencies=False,
         color_by='type', include_wireframe=True, use_mesh=True,
         hide_color_by=False, room_attrs=None, face_attrs=None,
-        grid_display_mode='Default', hide_grid=False):
+        grid_display_mode='Default', hide_grid=False, reset_coordinates=False):
     """Translate a Dragonfly Model to a VisualizationSet.
 
     Args:
@@ -71,10 +72,21 @@ def model_to_vis_set(
 
         hide_grid: Boolean to note whether the SensorGrid ContextGeometry should be
             hidden or shown by default. (Default: False).
+        reset_coordinates: Boolean to note whether the coordinate system of the
+            model should be reset in the resulting visualization set such that
+            the model sits at the origin. This is useful when the resulting
+            visualization platform is meant to orbit around the world
+            origin. (Default: False).
 
     Returns:
         A VisualizationSet object that represents the model.
     """
+    # reset the coordinate system if requested
+    if reset_coordinates:
+        min_pt = model.min
+        z_val = model.average_height - model.average_height_above_ground
+        center = Point3D(min_pt.x, min_pt.y, z_val)
+        model.reset_coordinate_system(center)
     # create the Honeybee Model from the Dragonfly one
     hb_model = model.to_honeybee(
         'District', use_multiplier=use_multiplier, exclude_plenums=exclude_plenums,
@@ -88,7 +100,8 @@ def model_to_vis_set(
 
 def model_comparison_to_vis_set(
         base_model, incoming_model, use_multiplier=True, exclude_plenums=False,
-        solve_ceiling_adjacencies=False, base_color=None, incoming_color=None):
+        solve_ceiling_adjacencies=False, base_color=None, incoming_color=None,
+        reset_coordinates=False):
     """Translate two Dragonfly Models to be compared to a VisualizationSet.
 
     Args:
@@ -117,7 +130,19 @@ def model_comparison_to_vis_set(
             If None, a default blue color will be used. (Default: None).
         incoming_color: An optional ladybug Color to set the color of the incoming model.
             If None, a default red color will be used. (Default: None).
+            reset_coordinates: Boolean to note whether the coordinate system of the
+            model should be reset in the resulting visualization set such that
+            the model sits at the origin. This is useful when the resulting
+            visualization platform is meant to orbit around the world
+            origin. (Default: False).
     """
+    # reset the coordinate system if requested
+    if reset_coordinates:
+        min_pt = base_model.min
+        z_val = base_model.average_height - base_model.average_height_above_ground
+        center = Point3D(min_pt.x, min_pt.y, z_val)
+        base_model.reset_coordinate_system(center)
+        incoming_model.reset_coordinate_system(center)
     # create the Honeybee Models from the Dragonfly ones
     base_model = base_model.to_honeybee(
         'District', use_multiplier=use_multiplier, exclude_plenums=exclude_plenums,
