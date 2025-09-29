@@ -100,7 +100,7 @@ def model_to_vis_set(
     if reset_coordinates:
         min_pt, max_pt = model.min, model.max
         z_val = model.average_height - model.average_height_above_ground
-        center = Point3D((max_pt.x + min_pt.x) / 2, (max_pt.x + min_pt.y) / 2, z_val)
+        center = Point3D((max_pt.x + min_pt.x) / 2, (max_pt.y + min_pt.y) / 2, z_val)
         model.reset_coordinate_system(center)
     # create the Honeybee Model from the Dragonfly one
     hb_model = model.to_honeybee(
@@ -170,7 +170,7 @@ def model_comparison_to_vis_set(
     if reset_coordinates:
         min_pt, max_pt = base_model.min, base_model.max
         z_val = base_model.average_height - base_model.average_height_above_ground
-        center = Point3D((max_pt.x + min_pt.x) / 2, (max_pt.x + min_pt.y) / 2, z_val)
+        center = Point3D((max_pt.x + min_pt.x) / 2, (max_pt.y + min_pt.y) / 2, z_val)
         base_model.reset_coordinate_system(center)
         incoming_model.reset_coordinate_system(center)
     # create the Honeybee Models from the Dragonfly ones
