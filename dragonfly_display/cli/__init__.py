@@ -45,6 +45,14 @@ def display():
     'that Surface boundary conditions are used instead of Adiabatic ones.',
     default=True, show_default=True)
 @click.option(
+    '--merge-method', help='Text to describe how the Room2Ds should '
+    'be merged into individual Rooms during the translation. Specifying a '
+    'value here can be an effective way to reduce the number of Room '
+    'volumes in the resulting 3D Honeybee Model and, ultimately, yield '
+    'a faster simulation time in the destination engine with fewer results '
+    'to manage. Choose from: None, Zones, PlenumZones, Stories, PlenumStories.',
+    type=str, default='None', show_default=True)
+@click.option(
     '--color-by', '-c', help='Text for the property that dictates the colors of '
     'the Model geometry. Choose from: type, boundary_condition, none. '
     'If none, only a wireframe of the Model will be generated (assuming the '
@@ -118,10 +126,11 @@ def display():
     'file contents. By default, it will be printed out to stdout.',
     type=click.File('w'), default='-', show_default=True)
 def model_to_vis_set_cli(
-        model_file, multiplier, plenum, no_ceil_adjacency,
-        color_by, wireframe, mesh, show_color_by,
-        room_attr, face_attr, color_attr, grid_display_mode, show_grid,
-        output_format, output_file):
+    model_file, multiplier, plenum, no_ceil_adjacency, merge_method,
+    color_by, wireframe, mesh, show_color_by,
+    room_attr, face_attr, color_attr, grid_display_mode, show_grid,
+    output_format, output_file
+):
     """Translate a Dragonfly Model file (.dfjson) to a VisualizationSet file (.vsf).
 
     This command can also optionally translate the Dragonfly Model to a .vtkjs file,
@@ -145,10 +154,11 @@ def model_to_vis_set_cli(
         hide_grid = not show_grid
 
         # pass the input to the function in order to convert the model
-        model_to_vis_set(model_file, full_geometry, no_plenum, ceil_adjacency, color_by,
-                         exclude_wireframe, faces, hide_color_by,
-                         room_attrs, face_attrs, text_labels, grid_display_mode,
-                         hide_grid, output_format, output_file)
+        model_to_vis_set(
+            model_file, full_geometry, no_plenum, ceil_adjacency, merge_method,
+            color_by, exclude_wireframe, faces, hide_color_by,
+            room_attrs, face_attrs, text_labels, grid_display_mode,
+            hide_grid, output_format, output_file)
     except Exception as e:
         _logger.exception('Failed to translate Model to VisualizationSet.\n{}'.format(e))
         sys.exit(1)
@@ -158,7 +168,8 @@ def model_to_vis_set_cli(
 
 def model_to_vis_set(
     model_file, full_geometry=False, no_plenum=False, ceil_adjacency=False,
-    color_by='type', exclude_wireframe=False, faces=False, hide_color_by=False,
+    merge_method='Default', color_by='type', exclude_wireframe=False,
+    faces=False, hide_color_by=False,
     room_attr=(), face_attr=(), text_attr=False, grid_display_mode='Default',
     hide_grid=False, output_format='vsf', output_file=None,
     multiplier=True, plenum=True, no_ceil_adjacency=True, wireframe=True, mesh=True,
@@ -181,6 +192,20 @@ def model_to_vis_set(
             between interior stories when Room2D floor and ceiling geometries
             are coplanar. This ensures that Surface boundary conditions are used
             instead of Adiabatic ones.
+        merge_method: An optional text string to describe how the Room2Ds should
+            be merged into individual Rooms during the translation. Specifying a
+            value here can be an effective way to reduce the number of Room volumes
+            in the resulting Model. Note that Room2Ds will only be merged if they
+            form a contiguous volume. Otherwise, there will be multiple Rooms per
+            zone or story, each with an integer added at the end of their
+            identifiers. Choose from the following options:
+
+            * None - No merging of Room2Ds will occur
+            * Zones - Room2Ds in the same zone will be merged
+            * PlenumZones - Only plenums in the same zone will be merged
+            * Stories - Rooms in the same story will be merged
+            * PlenumStories - Only plenums in the same story will be merged
+
         color_by: Text for the property that dictates the colors of the Model
             geometry. Choose from: type, boundary_condition, none. If none, only
             a wireframe of the Model will be generated (assuming the exclude_wireframe
@@ -261,11 +286,13 @@ def model_to_vis_set(
     # create the VisualizationSet
     multiplier = not full_geometry
     vis_set = model_obj.to_vis_set(
-        multiplier, no_plenum, ceil_adjacency, color_by=color_by,
-        include_wireframe=wireframe, use_mesh=mesh, hide_color_by=hide_color_by,
+        multiplier, no_plenum, ceil_adjacency, merge_method=merge_method,
+        color_by=color_by, include_wireframe=wireframe, use_mesh=mesh,
+        hide_color_by=hide_color_by,
         room_attrs=room_attributes, face_attrs=face_attributes,
         grid_display_mode=grid_display_mode, hide_grid=hide_grid,
-        reset_coordinates=reset_coordinates)
+        reset_coordinates=reset_coordinates
+    )
 
     # output the VisualizationSet through the CLI
     return _output_vis_set_to_format(vis_set, output_format, output_file)
@@ -292,6 +319,14 @@ def model_to_vis_set(
     'that Surface boundary conditions are used instead of Adiabatic ones.',
     default=True, show_default=True)
 @click.option(
+    '--merge-method', help='Text to describe how the Room2Ds should '
+    'be merged into individual Rooms during the translation. Specifying a '
+    'value here can be an effective way to reduce the number of Room '
+    'volumes in the resulting 3D Honeybee Model and, ultimately, yield '
+    'a faster simulation time in the destination engine with fewer results '
+    'to manage. Choose from: None, Zones, PlenumZones, Stories, PlenumStories.',
+    type=str, default='None', show_default=True)
+@click.option(
     '--base-color', '-bc', help='An optional hexadecimal code for the color '
     'of the base model.', type=str, default='#74eded', show_default=True)
 @click.option(
@@ -311,8 +346,9 @@ def model_to_vis_set(
     'file contents. By default, it will be printed out to stdout',
     type=click.File('w'), default='-', show_default=True)
 def model_comparison_to_vis_set_cli(
-        base_model_file, incoming_model_file, multiplier, plenum, no_ceil_adjacency,
-        base_color, incoming_color, output_format, output_file):
+    base_model_file, incoming_model_file, multiplier, plenum, no_ceil_adjacency,
+    merge_method, base_color, incoming_color, output_format, output_file
+):
     """Translate two Dragonfly Models to be compared to a VisualizationSet.
 
     This command can also optionally translate the Dragonfly Model to a .vtkjs file,
@@ -336,7 +372,9 @@ def model_comparison_to_vis_set_cli(
         # pass the input to the function in order to convert the model
         model_comparison_to_vis_set(
             base_model_file, incoming_model_file, full_geometry, no_plenum,
-            ceil_adjacency, base_color, incoming_color, output_format, output_file)
+            ceil_adjacency, merge_method, base_color, incoming_color,
+            output_format, output_file
+        )
     except Exception as e:
         _logger.exception('Failed to translate Model to VisualizationSet.\n{}'.format(e))
         sys.exit(1)
@@ -346,7 +384,8 @@ def model_comparison_to_vis_set_cli(
 
 def model_comparison_to_vis_set(
     base_model_file, incoming_model_file, full_geometry=False, no_plenum=False,
-    ceil_adjacency=False, base_color='#74eded', incoming_color='#ed7474',
+    ceil_adjacency=False, merge_method='None',
+    base_color='#74eded', incoming_color='#ed7474',
     output_format='vsf', output_file=None,
     multiplier=True, plenum=True, no_ceil_adjacency=True
 ):
@@ -372,6 +411,20 @@ def model_comparison_to_vis_set(
             between interior stories when Room2D floor and ceiling geometries
             are coplanar. This ensures that Surface boundary conditions are used
             instead of Adiabatic ones.
+        merge_method: An optional text string to describe how the Room2Ds should
+            be merged into individual Rooms during the translation. Specifying a
+            value here can be an effective way to reduce the number of Room volumes
+            in the resulting Model. Note that Room2Ds will only be merged if they
+            form a contiguous volume. Otherwise, there will be multiple Rooms per
+            zone or story, each with an integer added at the end of their
+            identifiers. Choose from the following options:
+
+            * None - No merging of Room2Ds will occur
+            * Zones - Room2Ds in the same zone will be merged
+            * PlenumZones - Only plenums in the same zone will be merged
+            * Stories - Rooms in the same story will be merged
+            * PlenumStories - Only plenums in the same story will be merged
+
         base_color: An optional hexadecimal code for the color of the base
             model. (Default: #74eded).
         incoming_color: An optional hexadecimal code for the color of the incoming
@@ -400,7 +453,7 @@ def model_comparison_to_vis_set(
     # create the VisualizationSet
     multiplier = not full_geometry
     vis_set = base_model.to_vis_set_comparison(
-        incoming_model, multiplier, no_plenum, ceil_adjacency,
+        incoming_model, multiplier, no_plenum, ceil_adjacency, merge_method,
         base_color, incoming_color, reset_coordinates=reset_coordinates)
 
     # output the VisualizationSet through the CLI
