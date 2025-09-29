@@ -22,7 +22,6 @@ RUN mkdir ladybug_tools && touch ladybug_tools/config.json
 COPY dragonfly_display ${LIBRARYDIR}/dragonfly_display
 COPY .git ${LIBRARYDIR}/.git
 COPY setup.py ${LIBRARYDIR}
-COPY setup.cfg ${LIBRARYDIR}
 COPY requirements.txt ${LIBRARYDIR}
 COPY extras-requirements.txt ${LIBRARYDIR}
 COPY README.md ${LIBRARYDIR}
