@@ -6,11 +6,12 @@ from honeybee_display.model import model_comparison_to_vis_set as \
 
 
 def model_to_vis_set(
-        model, use_multiplier=True, exclude_plenums=False,
-        solve_ceiling_adjacencies=False,
-        color_by='type', include_wireframe=True, use_mesh=True,
-        hide_color_by=False, room_attrs=None, face_attrs=None,
-        grid_display_mode='Default', hide_grid=False, reset_coordinates=False):
+    model, use_multiplier=True, exclude_plenums=False,
+    solve_ceiling_adjacencies=False, merge_method='None',
+    color_by='type', include_wireframe=True, use_mesh=True,
+    hide_color_by=False, room_attrs=None, face_attrs=None,
+    grid_display_mode='Default', hide_grid=False, reset_coordinates=False
+):
     """Translate a Dragonfly Model to a VisualizationSet.
 
     Args:
@@ -31,6 +32,20 @@ def model_to_vis_set(
             geometries are coplanar. This ensures that Surface boundary
             conditions are used instead of Adiabatic ones. Note that this input
             has no effect when the object_per_model is Story. (Default: False).
+        merge_method: An optional text string to describe how the Room2Ds should
+            be merged into individual Rooms during the translation. Specifying a
+            value here can be an effective way to reduce the number of Room volumes
+            in the resulting Model. Note that Room2Ds will only be merged if they
+            form a contiguous volume. Otherwise, there will be multiple Rooms per
+            zone or story, each with an integer added at the end of their
+            identifiers. Choose from the following options:
+
+            * None - No merging of Room2Ds will occur
+            * Zones - Room2Ds in the same zone will be merged
+            * PlenumZones - Only plenums in the same zone will be merged
+            * Stories - Rooms in the same story will be merged
+            * PlenumStories - Only plenums in the same story will be merged
+
         color_by: Text that dictates the colors of the Model geometry.
             If none, only a wireframe of the Model will be generated, assuming
             include_wireframe is True. This is useful when the primary purpose of
@@ -83,14 +98,14 @@ def model_to_vis_set(
     """
     # reset the coordinate system if requested
     if reset_coordinates:
-        min_pt = model.min
+        min_pt, max_pt = model.min, model.max
         z_val = model.average_height - model.average_height_above_ground
-        center = Point3D(min_pt.x, min_pt.y, z_val)
+        center = Point3D((max_pt.x + min_pt.x) / 2, (max_pt.x + min_pt.y) / 2, z_val)
         model.reset_coordinate_system(center)
     # create the Honeybee Model from the Dragonfly one
     hb_model = model.to_honeybee(
         'District', use_multiplier=use_multiplier, exclude_plenums=exclude_plenums,
-        solve_ceiling_adjacencies=solve_ceiling_adjacencies,
+        solve_ceiling_adjacencies=solve_ceiling_adjacencies, merge_method=merge_method,
         enforce_adj=False, enforce_solid=True)[0]
     # convert the Honeybee Model to a VisualizationSet
     return hb_model_to_vis_set(
@@ -99,9 +114,10 @@ def model_to_vis_set(
 
 
 def model_comparison_to_vis_set(
-        base_model, incoming_model, use_multiplier=True, exclude_plenums=False,
-        solve_ceiling_adjacencies=False, base_color=None, incoming_color=None,
-        reset_coordinates=False):
+    base_model, incoming_model, use_multiplier=True, exclude_plenums=False,
+    solve_ceiling_adjacencies=False, merge_method='None',
+    base_color=None, incoming_color=None, reset_coordinates=False
+):
     """Translate two Dragonfly Models to be compared to a VisualizationSet.
 
     Args:
@@ -126,6 +142,20 @@ def model_comparison_to_vis_set(
             geometries are coplanar. This ensures that Surface boundary
             conditions are used instead of Adiabatic ones. Note that this input
             has no effect when the object_per_model is Story. (Default: False).
+        merge_method: An optional text string to describe how the Room2Ds should
+            be merged into individual Rooms during the translation. Specifying a
+            value here can be an effective way to reduce the number of Room volumes
+            in the resulting Model. Note that Room2Ds will only be merged if they
+            form a contiguous volume. Otherwise, there will be multiple Rooms per
+            zone or story, each with an integer added at the end of their
+            identifiers. Choose from the following options:
+
+            * None - No merging of Room2Ds will occur
+            * Zones - Room2Ds in the same zone will be merged
+            * PlenumZones - Only plenums in the same zone will be merged
+            * Stories - Rooms in the same story will be merged
+            * PlenumStories - Only plenums in the same story will be merged
+
         base_color: An optional ladybug Color to set the color of the base model.
             If None, a default blue color will be used. (Default: None).
         incoming_color: An optional ladybug Color to set the color of the incoming model.
@@ -138,20 +168,22 @@ def model_comparison_to_vis_set(
     """
     # reset the coordinate system if requested
     if reset_coordinates:
-        min_pt = base_model.min
+        min_pt, max_pt = base_model.min, base_model.max
         z_val = base_model.average_height - base_model.average_height_above_ground
-        center = Point3D(min_pt.x, min_pt.y, z_val)
+        center = Point3D((max_pt.x + min_pt.x) / 2, (max_pt.x + min_pt.y) / 2, z_val)
         base_model.reset_coordinate_system(center)
         incoming_model.reset_coordinate_system(center)
     # create the Honeybee Models from the Dragonfly ones
     base_model = base_model.to_honeybee(
         'District', use_multiplier=use_multiplier, exclude_plenums=exclude_plenums,
-        solve_ceiling_adjacencies=solve_ceiling_adjacencies,
-        enforce_adj=False, enforce_solid=True)[0]
+        solve_ceiling_adjacencies=solve_ceiling_adjacencies, merge_method=merge_method,
+        enforce_adj=False, enforce_solid=True
+    )[0]
     incoming_model = incoming_model.to_honeybee(
         'District', use_multiplier=use_multiplier, exclude_plenums=exclude_plenums,
-        solve_ceiling_adjacencies=solve_ceiling_adjacencies,
-        enforce_adj=False, enforce_solid=True)[0]
+        solve_ceiling_adjacencies=solve_ceiling_adjacencies, merge_method=merge_method,
+        enforce_adj=False, enforce_solid=True
+    )[0]
     # convert the Honeybee Model to a VisualizationSet
     return hb_model_comparison_to_vis_set(
         base_model, incoming_model, base_color, incoming_color)
