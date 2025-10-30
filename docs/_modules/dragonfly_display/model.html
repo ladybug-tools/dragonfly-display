@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dragonfly_display.model &#8212; dragonfly display  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=0b9525ea" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link rel="icon" type="image/x-icon" href="https://github.com/ladybug-tools/artwork/raw/refs/heads/master/icons_bugs/ico/dragonfly.ico">
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          dragonfly display</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/index.html#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cli/main.html">main</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../cli/main.html#dragonfly-display">dragonfly-display</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#dragonfly-display-model-to-vis">model-to-vis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#dragonfly-display-model-envelope-edges-to-vis">model-envelope-edges-to-vis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#dragonfly-display-model-comparison-to-vis">model-comparison-to-vis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">dragonfly_display</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../dragonfly_display.html">dragonfly_display package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dragonfly_display.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dragonfly_display.cli.html">dragonfly_display.cli package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../dragonfly_display.cli.html#module-dragonfly_display.cli">Module contents</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../dragonfly_display.cli.html#dragonfly_display.cli.model_comparison_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_comparison_to_vis_set()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../dragonfly_display.cli.html#dragonfly_display.cli.model_envelope_edges_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_envelope_edges_to_vis_set()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../dragonfly_display.cli.html#dragonfly_display.cli.model_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_to_vis_set()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dragonfly_display.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dragonfly_display.model.html">dragonfly_display.model module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../dragonfly_display.model.html#dragonfly_display.model.model_comparison_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_comparison_to_vis_set()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../dragonfly_display.model.html#dragonfly_display.model.model_envelope_edges_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_envelope_edges_to_vis_set()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../dragonfly_display.model.html#dragonfly_display.model.model_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_to_vis_set()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dragonfly_display.html#module-dragonfly_display">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">dragonfly_display</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">dragonfly_display</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <h1>Source code for dragonfly_display.model</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Method to translate a Dragonfly Model to a VisualizationSet.&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ladybug_geometry.geometry3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vector3D</span><span class="p">,</span> <span class="n">Point3D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ladybug.color</span><span class="w"> </span><span class="kn">import</span> <span class="n">Color</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ladybug_display.geometry3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">DisplayLineSegment3D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ladybug_display.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">ContextGeometry</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_display.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">model_to_vis_set</span> <span class="k">as</span> <span class="n">hb_model_to_vis_set</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_display.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">model_comparison_to_vis_set</span> <span class="k">as</span> \
+    <span class="n">hb_model_comparison_to_vis_set</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_display.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">model_envelope_edges_to_vis_set</span> <span class="k">as</span> \
+    <span class="n">hb_model_envelope_edges_to_vis_set</span>
+
+
+<div class="viewcode-block" id="model_to_vis_set">
+<a class="viewcode-back" href="../../dragonfly_display.model.html#dragonfly_display.model.model_to_vis_set">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">model_to_vis_set</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span> <span class="n">use_multiplier</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_plenums</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">solve_ceiling_adjacencies</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">merge_method</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+    <span class="n">color_by</span><span class="o">=</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="n">include_wireframe</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_mesh</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">hide_color_by</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">room_attrs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">face_attrs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid_display_mode</span><span class="o">=</span><span class="s1">&#39;Default&#39;</span><span class="p">,</span> <span class="n">hide_grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reset_coordinates</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Translate a Dragonfly Model to a VisualizationSet.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model: A Dragonfly Model object to be converted to a VisualizationSet.</span>
+<span class="sd">        use_multiplier: If True, the multipliers on this Model&#39;s Stories will be</span>
+<span class="sd">            passed along to the generated Honeybee Room objects, indicating the</span>
+<span class="sd">            simulation will be run once for each unique room and then results</span>
+<span class="sd">            will be multiplied. If False, full geometry objects will be written</span>
+<span class="sd">            for each and every floor in the building that are represented through</span>
+<span class="sd">            multipliers and all resulting multipliers will be 1. (Default: True).</span>
+<span class="sd">        exclude_plenums: Boolean to indicate whether ceiling/floor plenum depths</span>
+<span class="sd">            assigned to Room2Ds should be ignored during translation. This</span>
+<span class="sd">            results in each Room2D translating to a single Honeybee Room at</span>
+<span class="sd">            the full floor_to_ceiling_height instead of a base Room with (a)</span>
+<span class="sd">            plenum Room(s). (Default: False).</span>
+<span class="sd">        solve_ceiling_adjacencies: Boolean to note whether adjacencies should be</span>
+<span class="sd">            solved between interior stories when Room2D floor and ceiling</span>
+<span class="sd">            geometries are coplanar. This ensures that Surface boundary</span>
+<span class="sd">            conditions are used instead of Adiabatic ones. Note that this input</span>
+<span class="sd">            has no effect when the object_per_model is Story. (Default: False).</span>
+<span class="sd">        merge_method: An optional text string to describe how the Room2Ds should</span>
+<span class="sd">            be merged into individual Rooms during the translation. Specifying a</span>
+<span class="sd">            value here can be an effective way to reduce the number of Room volumes</span>
+<span class="sd">            in the resulting Model. Note that Room2Ds will only be merged if they</span>
+<span class="sd">            form a contiguous volume. Otherwise, there will be multiple Rooms per</span>
+<span class="sd">            zone or story, each with an integer added at the end of their</span>
+<span class="sd">            identifiers. Choose from the following options:</span>
+
+<span class="sd">            * None - No merging of Room2Ds will occur</span>
+<span class="sd">            * Zones - Room2Ds in the same zone will be merged</span>
+<span class="sd">            * PlenumZones - Only plenums in the same zone will be merged</span>
+<span class="sd">            * Stories - Rooms in the same story will be merged</span>
+<span class="sd">            * PlenumStories - Only plenums in the same story will be merged</span>
+
+<span class="sd">        color_by: Text that dictates the colors of the Model geometry.</span>
+<span class="sd">            If none, only a wireframe of the Model will be generated, assuming</span>
+<span class="sd">            include_wireframe is True. This is useful when the primary purpose of</span>
+<span class="sd">            the visualization is to display results in relation to the Model</span>
+<span class="sd">            geometry or display some room_attrs or face_attrs as an AnalysisGeometry</span>
+<span class="sd">            or Text labels. (Default: type). Choose from the following:</span>
+
+<span class="sd">            * type</span>
+<span class="sd">            * boundary_condition</span>
+<span class="sd">            * None</span>
+
+<span class="sd">        include_wireframe: Boolean to note whether a ContextGeometry dedicated to</span>
+<span class="sd">            the Model Wireframe (in DisplayLineSegment3D) should be included</span>
+<span class="sd">            in the output VisualizationSet. (Default: True).</span>
+<span class="sd">        use_mesh: Boolean to note whether the colored model geometries should</span>
+<span class="sd">            be represented with DisplayMesh3D objects (True) instead of DisplayFace3D</span>
+<span class="sd">            objects (False). Meshes can usually be rendered faster and they scale</span>
+<span class="sd">            well for large models but all geometry is triangulated (meaning that</span>
+<span class="sd">            the wireframe in certain platforms might not appear ideal). (Default: True).</span>
+<span class="sd">        hide_color_by: Boolean to note whether the color_by geometry should be</span>
+<span class="sd">            hidden or shown by default. Hiding the color-by geometry is useful</span>
+<span class="sd">            when the primary purpose of the visualization is to display grid_data</span>
+<span class="sd">            or room/face attributes but it is still desirable to have the option</span>
+<span class="sd">            to turn on the geometry.</span>
+<span class="sd">        room_attrs: An optional list of room attribute objects from the</span>
+<span class="sd">            honeybee_display.attr module.</span>
+<span class="sd">        face_attrs: An optional list of face attribute objects from the</span>
+<span class="sd">            honeybee_display.attr module.</span>
+<span class="sd">        grid_display_mode: Text that dictates how the ContextGeometry for Model</span>
+<span class="sd">            SensorGrids should display in the resulting visualization. The Default</span>
+<span class="sd">            option will draw sensor points. Choose from the following:</span>
+
+<span class="sd">            * Default</span>
+<span class="sd">            * Points</span>
+<span class="sd">            * Wireframe</span>
+<span class="sd">            * Surface</span>
+<span class="sd">            * SurfaceWithEdges</span>
+<span class="sd">            * None</span>
+
+<span class="sd">        hide_grid: Boolean to note whether the SensorGrid ContextGeometry should be</span>
+<span class="sd">            hidden or shown by default. (Default: False).</span>
+<span class="sd">        reset_coordinates: Boolean to note whether the coordinate system of the</span>
+<span class="sd">            model should be reset in the resulting visualization set such that</span>
+<span class="sd">            the model sits at the origin. This is useful when the resulting</span>
+<span class="sd">            visualization platform is meant to orbit around the world</span>
+<span class="sd">            origin. (Default: False).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A VisualizationSet object that represents the model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># reset the coordinate system if requested</span>
+    <span class="k">if</span> <span class="n">reset_coordinates</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">duplicate</span><span class="p">()</span>
+        <span class="n">min_pt</span><span class="p">,</span> <span class="n">max_pt</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">max</span>
+        <span class="n">z_val</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">average_height</span> <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">average_height_above_ground</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">((</span><span class="n">max_pt</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">min_pt</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">max_pt</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">min_pt</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">z_val</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">reset_coordinate_system</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+    <span class="c1"># create the Honeybee Model from the Dragonfly one</span>
+    <span class="n">hb_model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to_honeybee</span><span class="p">(</span>
+        <span class="s1">&#39;District&#39;</span><span class="p">,</span> <span class="n">use_multiplier</span><span class="o">=</span><span class="n">use_multiplier</span><span class="p">,</span> <span class="n">exclude_plenums</span><span class="o">=</span><span class="n">exclude_plenums</span><span class="p">,</span>
+        <span class="n">solve_ceiling_adjacencies</span><span class="o">=</span><span class="n">solve_ceiling_adjacencies</span><span class="p">,</span> <span class="n">merge_method</span><span class="o">=</span><span class="n">merge_method</span><span class="p">,</span>
+        <span class="n">enforce_adj</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">enforce_solid</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># convert the Honeybee Model to a VisualizationSet</span>
+    <span class="k">return</span> <span class="n">hb_model_to_vis_set</span><span class="p">(</span>
+        <span class="n">hb_model</span><span class="p">,</span> <span class="n">color_by</span><span class="p">,</span> <span class="n">include_wireframe</span><span class="p">,</span> <span class="n">use_mesh</span><span class="p">,</span> <span class="n">hide_color_by</span><span class="p">,</span>
+        <span class="n">room_attrs</span><span class="p">,</span> <span class="n">face_attrs</span><span class="p">,</span> <span class="n">grid_display_mode</span><span class="p">,</span> <span class="n">hide_grid</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="model_envelope_edges_to_vis_set">
+<a class="viewcode-back" href="../../dragonfly_display.model.html#dragonfly_display.model.model_envelope_edges_to_vis_set">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">model_envelope_edges_to_vis_set</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span> <span class="n">coplanar_type</span><span class="o">=</span><span class="s1">&#39;FloorPlatesOnly&#39;</span><span class="p">,</span> <span class="n">mullion_thickness</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">reset_coordinates</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Translate a Dragonfly Model to a VisualizationSet with edges highlighted.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model: A Dragonfly Model object which will have its edges converted to</span>
+<span class="sd">            a VisualizationSet.</span>
+<span class="sd">        coplanar_type: Text to indicate whether any edges between coplanar envelope</span>
+<span class="sd">            faces should be included in the result. Most coplanar edges in the</span>
+<span class="sd">            envelope do not correspond to real physical thermal bridges but edges</span>
+<span class="sd">            where interior floor plates align with exterior walls might result</span>
+<span class="sd">            in bridges. Choose from the following options. (Default: FloorPlatesOnly).</span>
+
+<span class="sd">            * None</span>
+<span class="sd">            * FloorPlatesOnly</span>
+<span class="sd">            * All</span>
+
+<span class="sd">        mullion_thickness: The maximum difference that apertures or doors can be from</span>
+<span class="sd">            one another for the edges to be considered a mullion rather than</span>
+<span class="sd">            a frame. If None, all edges of apertures and doors will be considered</span>
+<span class="sd">            frames rather than mullions.</span>
+<span class="sd">        reset_coordinates: Boolean to note whether the coordinate system of the</span>
+<span class="sd">            model should be reset in the resulting visualization set such that</span>
+<span class="sd">            the model sits at the origin. This is useful when the resulting</span>
+<span class="sd">            visualization platform is meant to orbit around the world</span>
+<span class="sd">            origin. (Default: False).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A VisualizationSet object that represents the model. This includes these</span>
+<span class="sd">        objects in the following order, though certain layers may be removed if</span>
+<span class="sd">        the model contains none of a certain case or if they are not relevant</span>
+<span class="sd">        given the input options.</span>
+
+<span class="sd">        -   Roofs_to_Walls -- A ContextGeometry for the envelope edges where</span>
+<span class="sd">            roofs meet exterior walls (or exterior floors).</span>
+
+<span class="sd">        -   Slabs_to_Walls -- A ContextGeometry for the envelope edges where ground</span>
+<span class="sd">            floor slabs meet exterior walls (or roofs).</span>
+
+<span class="sd">        -   Exposed_Floors_to_Walls -- A ContextGeometry for the envelope edges</span>
+<span class="sd">            where exposed floors meet exterior walls.</span>
+
+<span class="sd">        -   Interior_Floors_to_Walls -- A ContextGeometry for the envelope edges</span>
+<span class="sd">            where interior floors meet exterior walls.</span>
+
+<span class="sd">        -   Walls_to_Walls -- A ContextGeometry for the envelope edges where</span>
+<span class="sd">            exterior walls meet (as in corners of buildings).</span>
+
+<span class="sd">        -   Roof_Ridges -- A ContextGeometry for the envelope edges where exterior</span>
+<span class="sd">            roofs meet.</span>
+
+<span class="sd">        -   Exposed_Floors_to_Floors -- A ContextGeometry for the envelope edges</span>
+<span class="sd">            where exposed floors meet.</span>
+
+<span class="sd">        -   Underground -- A ContextGeometry for the envelope edges where</span>
+<span class="sd">            underground faces meet.</span>
+
+<span class="sd">        -   Window_Frames -- A ContextGeometry for the edges where apertures meet</span>
+<span class="sd">            their parent exterior wall or roof.</span>
+
+<span class="sd">        -   Window_Mullions -- A ContextGeometry for the edges where apertures</span>
+<span class="sd">            meet one another.</span>
+
+<span class="sd">        -   Door_Frames -- A ContextGeometry for the edges where doors meet</span>
+<span class="sd">            their parent exterior wall or roof.</span>
+
+<span class="sd">        -   Door_Mullions -- A ContextGeometry for the edges where doors meet</span>
+<span class="sd">            one another.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># reset the coordinate system if requested</span>
+    <span class="k">if</span> <span class="n">reset_coordinates</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">duplicate</span><span class="p">()</span>
+        <span class="n">min_pt</span><span class="p">,</span> <span class="n">max_pt</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">max</span>
+        <span class="n">z_val</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">average_height</span> <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">average_height_above_ground</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">((</span><span class="n">max_pt</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">min_pt</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">max_pt</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">min_pt</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">z_val</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">reset_coordinate_system</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+
+    <span class="c1"># create the Honeybee Model from the Dragonfly one</span>
+    <span class="n">hb_model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to_honeybee</span><span class="p">(</span>
+        <span class="s1">&#39;District&#39;</span><span class="p">,</span> <span class="n">use_multiplier</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">exclude_plenums</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">solve_ceiling_adjacencies</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enforce_adj</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">enforce_solid</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># make the visualization set of envelope edges</span>
+    <span class="n">coplanar_type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">coplanar_type</span><span class="p">)</span>
+    <span class="n">exclude_coplanar</span> <span class="o">=</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">coplanar_type</span> <span class="o">==</span> <span class="s1">&#39;All&#39;</span> <span class="k">else</span> <span class="kc">True</span>
+    <span class="n">vis_set</span> <span class="o">=</span> <span class="n">hb_model_envelope_edges_to_vis_set</span><span class="p">(</span>
+        <span class="n">hb_model</span><span class="p">,</span> <span class="n">exclude_coplanar</span><span class="p">,</span> <span class="n">mullion_thickness</span><span class="p">)</span>
+
+    <span class="c1"># if FloorPlatesOnly option was selected, add it as a layer</span>
+    <span class="k">if</span> <span class="n">coplanar_type</span> <span class="o">==</span> <span class="s1">&#39;FloorPlatesOnly&#39;</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="n">up_vec</span> <span class="o">=</span> <span class="n">Vector3D</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">min_ang</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">angle_tolerance</span><span class="p">)</span>
+        <span class="n">max_ang</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">angle_tolerance</span><span class="p">)</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">ext_walls_to_walls</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> \
+            <span class="n">hb_model</span><span class="o">.</span><span class="n">classified_envelope_edges</span><span class="p">(</span><span class="n">exclude_coplanar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">interior_floor_plate_to_wall</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">ext_walls_to_walls</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">min_ang</span> <span class="o">&lt;=</span> <span class="n">up_vec</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">edge</span><span class="o">.</span><span class="n">v</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">max_ang</span><span class="p">:</span>
+                <span class="n">interior_floor_plate_to_wall</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+        <span class="n">display_edges</span> <span class="o">=</span> <span class="p">[</span><span class="n">DisplayLineSegment3D</span><span class="p">(</span><span class="n">seg</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                         <span class="k">for</span> <span class="n">seg</span> <span class="ow">in</span> <span class="n">interior_floor_plate_to_wall</span><span class="p">]</span>
+        <span class="n">edge_id</span> <span class="o">=</span> <span class="s1">&#39;Interior_Floors_to_Walls&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">display_edges</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">con_geo</span> <span class="o">=</span> <span class="n">ContextGeometry</span><span class="p">(</span><span class="n">edge_id</span><span class="p">,</span> <span class="n">display_edges</span><span class="p">)</span>
+            <span class="n">con_geo</span><span class="o">.</span><span class="n">display_name</span> <span class="o">=</span> <span class="n">edge_id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="n">insert_index</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">geo</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vis_set</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">geo</span><span class="o">.</span><span class="n">identifier</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;Walls_to_Walls&#39;</span><span class="p">,</span> <span class="s1">&#39;Roof_Ridges&#39;</span><span class="p">,</span> <span class="s1">&#39;Roofs_to_Roofs&#39;</span><span class="p">):</span>
+                    <span class="n">insert_index</span> <span class="o">=</span> <span class="n">i</span>
+                    <span class="k">break</span>
+            <span class="n">vis_set</span><span class="o">.</span><span class="n">add_geometry</span><span class="p">(</span><span class="n">con_geo</span><span class="p">,</span> <span class="n">insert_index</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">vis_set</span></div>
+
+
+
+<div class="viewcode-block" id="model_comparison_to_vis_set">
+<a class="viewcode-back" href="../../dragonfly_display.model.html#dragonfly_display.model.model_comparison_to_vis_set">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">model_comparison_to_vis_set</span><span class="p">(</span>
+    <span class="n">base_model</span><span class="p">,</span> <span class="n">incoming_model</span><span class="p">,</span> <span class="n">use_multiplier</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_plenums</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">solve_ceiling_adjacencies</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">merge_method</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+    <span class="n">base_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">incoming_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reset_coordinates</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Translate two Dragonfly Models to be compared to a VisualizationSet.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        base_model: A Dragonfly Model object for the base model used in the</span>
+<span class="sd">            comparison. Typically, this is the model with more data to be kept.</span>
+<span class="sd">        incoming_model: A Dragonfly Model object for the incoming model used in the</span>
+<span class="sd">            comparison. Typically, this is the model with new data to be</span>
+<span class="sd">            evaluated against the base model.</span>
+<span class="sd">        use_multiplier: If True, the multipliers on this Model&#39;s Stories will be</span>
+<span class="sd">            passed along to the generated Honeybee Room objects, indicating the</span>
+<span class="sd">            simulation will be run once for each unique room and then results</span>
+<span class="sd">            will be multiplied. If False, full geometry objects will be written</span>
+<span class="sd">            for each and every floor in the building that are represented through</span>
+<span class="sd">            multipliers and all resulting multipliers will be 1. (Default: True).</span>
+<span class="sd">        exclude_plenums: Boolean to indicate whether ceiling/floor plenum depths</span>
+<span class="sd">            assigned to Room2Ds should be ignored during translation. This</span>
+<span class="sd">            results in each Room2D translating to a single Honeybee Room at</span>
+<span class="sd">            the full floor_to_ceiling_height instead of a base Room with (a)</span>
+<span class="sd">            plenum Room(s). (Default: False).</span>
+<span class="sd">        solve_ceiling_adjacencies: Boolean to note whether adjacencies should be</span>
+<span class="sd">            solved between interior stories when Room2D floor and ceiling</span>
+<span class="sd">            geometries are coplanar. This ensures that Surface boundary</span>
+<span class="sd">            conditions are used instead of Adiabatic ones. Note that this input</span>
+<span class="sd">            has no effect when the object_per_model is Story. (Default: False).</span>
+<span class="sd">        merge_method: An optional text string to describe how the Room2Ds should</span>
+<span class="sd">            be merged into individual Rooms during the translation. Specifying a</span>
+<span class="sd">            value here can be an effective way to reduce the number of Room volumes</span>
+<span class="sd">            in the resulting Model. Note that Room2Ds will only be merged if they</span>
+<span class="sd">            form a contiguous volume. Otherwise, there will be multiple Rooms per</span>
+<span class="sd">            zone or story, each with an integer added at the end of their</span>
+<span class="sd">            identifiers. Choose from the following options:</span>
+
+<span class="sd">            * None - No merging of Room2Ds will occur</span>
+<span class="sd">            * Zones - Room2Ds in the same zone will be merged</span>
+<span class="sd">            * PlenumZones - Only plenums in the same zone will be merged</span>
+<span class="sd">            * Stories - Rooms in the same story will be merged</span>
+<span class="sd">            * PlenumStories - Only plenums in the same story will be merged</span>
+
+<span class="sd">        base_color: An optional ladybug Color to set the color of the base model.</span>
+<span class="sd">            If None, a default blue color will be used. (Default: None).</span>
+<span class="sd">        incoming_color: An optional ladybug Color to set the color of the incoming model.</span>
+<span class="sd">            If None, a default red color will be used. (Default: None).</span>
+<span class="sd">            reset_coordinates: Boolean to note whether the coordinate system of the</span>
+<span class="sd">            model should be reset in the resulting visualization set such that</span>
+<span class="sd">            the model sits at the origin. This is useful when the resulting</span>
+<span class="sd">            visualization platform is meant to orbit around the world</span>
+<span class="sd">            origin. (Default: False).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># reset the coordinate system if requested</span>
+    <span class="k">if</span> <span class="n">reset_coordinates</span><span class="p">:</span>
+        <span class="n">min_pt</span><span class="p">,</span> <span class="n">max_pt</span> <span class="o">=</span> <span class="n">base_model</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">base_model</span><span class="o">.</span><span class="n">max</span>
+        <span class="n">z_val</span> <span class="o">=</span> <span class="n">base_model</span><span class="o">.</span><span class="n">average_height</span> <span class="o">-</span> <span class="n">base_model</span><span class="o">.</span><span class="n">average_height_above_ground</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">((</span><span class="n">max_pt</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">min_pt</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">max_pt</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">min_pt</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">z_val</span><span class="p">)</span>
+        <span class="n">base_model</span><span class="o">.</span><span class="n">reset_coordinate_system</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+        <span class="n">incoming_model</span><span class="o">.</span><span class="n">reset_coordinate_system</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+    <span class="c1"># create the Honeybee Models from the Dragonfly ones</span>
+    <span class="n">base_model</span> <span class="o">=</span> <span class="n">base_model</span><span class="o">.</span><span class="n">to_honeybee</span><span class="p">(</span>
+        <span class="s1">&#39;District&#39;</span><span class="p">,</span> <span class="n">use_multiplier</span><span class="o">=</span><span class="n">use_multiplier</span><span class="p">,</span> <span class="n">exclude_plenums</span><span class="o">=</span><span class="n">exclude_plenums</span><span class="p">,</span>
+        <span class="n">solve_ceiling_adjacencies</span><span class="o">=</span><span class="n">solve_ceiling_adjacencies</span><span class="p">,</span> <span class="n">merge_method</span><span class="o">=</span><span class="n">merge_method</span><span class="p">,</span>
+        <span class="n">enforce_adj</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">enforce_solid</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">incoming_model</span> <span class="o">=</span> <span class="n">incoming_model</span><span class="o">.</span><span class="n">to_honeybee</span><span class="p">(</span>
+        <span class="s1">&#39;District&#39;</span><span class="p">,</span> <span class="n">use_multiplier</span><span class="o">=</span><span class="n">use_multiplier</span><span class="p">,</span> <span class="n">exclude_plenums</span><span class="o">=</span><span class="n">exclude_plenums</span><span class="p">,</span>
+        <span class="n">solve_ceiling_adjacencies</span><span class="o">=</span><span class="n">solve_ceiling_adjacencies</span><span class="p">,</span> <span class="n">merge_method</span><span class="o">=</span><span class="n">merge_method</span><span class="p">,</span>
+        <span class="n">enforce_adj</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">enforce_solid</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># convert the Honeybee Model to a VisualizationSet</span>
+    <span class="k">return</span> <span class="n">hb_model_comparison_to_vis_set</span><span class="p">(</span>
+        <span class="n">base_model</span><span class="p">,</span> <span class="n">incoming_model</span><span class="p">,</span> <span class="n">base_color</span><span class="p">,</span> <span class="n">incoming_color</span><span class="p">)</span></div>
+
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

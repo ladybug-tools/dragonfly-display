@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>dragonfly_display.cli package &#8212; dragonfly display  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=0b9525ea" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="dragonfly_display.model module" href="dragonfly_display.model.html" />
+    <link rel="prev" title="dragonfly_display package" href="dragonfly_display.html" />
+<link rel="icon" type="image/x-icon" href="https://github.com/ladybug-tools/artwork/raw/refs/heads/master/icons_bugs/ico/dragonfly.ico">
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          dragonfly display</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli/index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/index.html#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cli/main.html">main</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/main.html#dragonfly-display">dragonfly-display</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="cli/main.html#dragonfly-display-model-to-vis">model-to-vis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cli/main.html#dragonfly-display-model-envelope-edges-to-vis">model-envelope-edges-to-vis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cli/main.html#dragonfly-display-model-comparison-to-vis">model-comparison-to-vis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">dragonfly_display</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="dragonfly_display.html">dragonfly_display package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="dragonfly_display.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">dragonfly_display.cli package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#module-dragonfly_display.cli">Module contents</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#dragonfly_display.cli.model_comparison_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_comparison_to_vis_set()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#dragonfly_display.cli.model_envelope_edges_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_envelope_edges_to_vis_set()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#dragonfly_display.cli.model_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_to_vis_set()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dragonfly_display.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dragonfly_display.model.html">dragonfly_display.model module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="dragonfly_display.model.html#dragonfly_display.model.model_comparison_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_comparison_to_vis_set()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="dragonfly_display.model.html#dragonfly_display.model.model_envelope_edges_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_envelope_edges_to_vis_set()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="dragonfly_display.model.html#dragonfly_display.model.model_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_to_vis_set()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dragonfly_display.html#module-dragonfly_display">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Docs</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">dragonfly_display</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="dragonfly_display.html">dragonfly_display package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="dragonfly_display.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">dragonfly_display.cli package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#module-dragonfly_display.cli">Module contents</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#dragonfly_display.cli.model_comparison_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_comparison_to_vis_set()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#dragonfly_display.cli.model_envelope_edges_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_envelope_edges_to_vis_set()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#dragonfly_display.cli.model_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_to_vis_set()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dragonfly_display.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dragonfly_display.html#module-dragonfly_display">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="dragonfly_display.html" title="Previous Chapter: dragonfly_display package"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; dragonfly_dis...</span>
+    </a>
+  </li>
+  <li>
+    <a href="dragonfly_display.model.html" title="Next Chapter: dragonfly_display.model module"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">dragonfly_dis... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/dragonfly_display.cli.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Docs</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">dragonfly_display</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="dragonfly_display.html">dragonfly_display package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="dragonfly_display.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">dragonfly_display.cli package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#module-dragonfly_display.cli">Module contents</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#dragonfly_display.cli.model_comparison_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_comparison_to_vis_set()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#dragonfly_display.cli.model_envelope_edges_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_envelope_edges_to_vis_set()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#dragonfly_display.cli.model_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_to_vis_set()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dragonfly_display.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dragonfly_display.html#module-dragonfly_display">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <section id="dragonfly-display-cli-package">
+<h1>dragonfly_display.cli package<a class="headerlink" href="#dragonfly-display-cli-package" title="Link to this heading">¶</a></h1>
+<section id="module-dragonfly_display.cli">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dragonfly_display.cli" title="Link to this heading">¶</a></h2>
+<p>dragonfly-display commands.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="dragonfly_display.cli.model_comparison_to_vis_set">
+<span class="sig-prename descclassname"><span class="pre">dragonfly_display.cli.</span></span><span class="sig-name descname"><span class="pre">model_comparison_to_vis_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_model_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incoming_model_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_geometry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_plenum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ceil_adjacency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#74eded'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incoming_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#ed7474'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'vsf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiplier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plenum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_ceil_adjacency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonfly_display/cli.html#model_comparison_to_vis_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dragonfly_display.cli.model_comparison_to_vis_set" title="Link to this definition">¶</a></dt>
+<dd><p>Translate two Honeybee Models to be compared to a VisualizationSet.</p>
+<p>This command can also optionally translate the Honeybee Model to a .vtkjs file,
+which can be visualized in the open source Visual ToolKit (VTK) platform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_model_file</strong> – Full path to a Honeybee Model (HBJSON or HBpkl) file
+representing the base model used in the comparison. Typically, this
+is the model with more data to be kept.</p></li>
+<li><p><strong>incoming_model_file</strong> – Full path to a Honeybee Model (HBJSON or HBpkl) file
+representing the incoming model used in the comparison. Typically,
+this is the model with new data to be evaluated against the base model.</p></li>
+<li><p><strong>full_geometry</strong> – Boolean to note if the multipliers on each Story should
+be passed along to the generated Honeybee Room objects or if full
+geometry objects should be written for each story in the building.</p></li>
+<li><p><strong>no_plenum</strong> – Boolean to indicate whether ceiling/floor plenum depths
+assigned to Room2Ds should generate distinct 3D Rooms in the
+translation. (Default: False).</p></li>
+<li><p><strong>ceil_adjacency</strong> – Boolean to indicate whether adjacencies should be solved
+between interior stories when Room2D floor and ceiling geometries
+are coplanar. This ensures that Surface boundary conditions are used
+instead of Adiabatic ones.</p></li>
+<li><p><strong>merge_method</strong> – <p>An optional text string to describe how the Room2Ds should
+be merged into individual Rooms during the translation. Specifying a
+value here can be an effective way to reduce the number of Room volumes
+in the resulting Model. Note that Room2Ds will only be merged if they
+form a contiguous volume. Otherwise, there will be multiple Rooms per
+zone or story, each with an integer added at the end of their
+identifiers. Choose from the following options:</p>
+<ul>
+<li><p>None - No merging of Room2Ds will occur</p></li>
+<li><p>Zones - Room2Ds in the same zone will be merged</p></li>
+<li><p>PlenumZones - Only plenums in the same zone will be merged</p></li>
+<li><p>Stories - Rooms in the same story will be merged</p></li>
+<li><p>PlenumStories - Only plenums in the same story will be merged</p></li>
+</ul>
+</p></li>
+<li><p><strong>base_color</strong> – An optional hexadecimal code for the color of the base
+model. (Default: #74eded).</p></li>
+<li><p><strong>incoming_color</strong> – An optional hexadecimal code for the color of the incoming
+model. (Default: #ed7474).</p></li>
+<li><p><strong>output_format</strong> – Text for the output format of the resulting VisualizationSet
+File (.vsf). Choose from: vsf, json, pkl, vtkjs, html. Note that both
+vsf and json refer to the the JSON version of the VisualizationSet
+file and the distinction between the two is only for help in
+coordinating file extensions (since both .vsf and .json can be
+acceptable). Also note that ladybug-vtk must be installed in order
+for the vtkjs or html options to be usable and the html format
+refers to a web page with the vtkjs file embedded within it.</p></li>
+<li><p><strong>output_file</strong> – Optional file to output the string of the visualization
+file contents. If None, the string will simply be returned from
+this method.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dragonfly_display.cli.model_envelope_edges_to_vis_set">
+<span class="sig-prename descclassname"><span class="pre">dragonfly_display.cli.</span></span><span class="sig-name descname"><span class="pre">model_envelope_edges_to_vis_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coplanar_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'FloorPlatesOnly'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mullion_thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'vsf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonfly_display/cli.html#model_envelope_edges_to_vis_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dragonfly_display.cli.model_envelope_edges_to_vis_set" title="Link to this definition">¶</a></dt>
+<dd><p>Translate a Dragonfly Model to a VisualizationSet with edges highlighted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_file</strong> – Full path to a Dragonfly Model (DFJSON or DFpkl) file,
+which will have its envelope edges converted to a VisualizationSet.</p></li>
+<li><p><strong>coplanar_type</strong> – <p>Text to indicate whether any edges between coplanar envelope
+faces should be included in the result. Most coplanar edges in the
+envelope do not correspond to real physical thermal bridges but edges
+where interior floor plates align with exterior walls might result
+in bridges. Choose from the following options. (Default: FloorPlatesOnly).</p>
+<ul>
+<li><p>None</p></li>
+<li><p>FloorPlatesOnly</p></li>
+<li><p>All</p></li>
+</ul>
+</p></li>
+<li><p><strong>mullion_thickness</strong> – The maximum difference that apertures or doors can be from
+one another for the edges to be considered a mullion rather than
+a frame. This can include the units of the distance (eg. 0.3ft) or,
+if no units are provided, the value will be interpreted in the dragonfly
+model units. If None, all edges of apertures and doors will be considered
+frames rather than mullions.</p></li>
+<li><p><strong>output_format</strong> – Text for the output format of the resulting VisualizationSet
+File (.vsf). Choose from: vsf, json, pkl, vtkjs, html. Note that both
+vsf and json refer to the the JSON version of the VisualizationSet
+file and the distinction between the two is only for help in
+coordinating file extensions (since both .vsf and .json can be
+acceptable). Also note that ladybug-vtk must be installed in order
+for the vtkjs or html options to be usable and the html format
+refers to a web page with the vtkjs file embedded within it.</p></li>
+<li><p><strong>output_file</strong> – Optional file to output the string of the visualization
+file contents. If None, the string will simply be returned from
+this method.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dragonfly_display.cli.model_to_vis_set">
+<span class="sig-prename descclassname"><span class="pre">dragonfly_display.cli.</span></span><span class="sig-name descname"><span class="pre">model_to_vis_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_geometry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_plenum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ceil_adjacency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'type'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_wireframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">faces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_color_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">room_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">face_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_display_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'vsf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiplier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plenum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_ceil_adjacency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wireframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_color_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonfly_display/cli.html#model_to_vis_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dragonfly_display.cli.model_to_vis_set" title="Link to this definition">¶</a></dt>
+<dd><p>Translate a Dragonfly Model file (.dfjson) to a VisualizationSet file (.vsf).</p>
+<p>This function can also optionally translate the Dragonfly Model to a .vtkjs file,
+which can be visualized in the open source Visual ToolKit (VTK) platform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_file</strong> – Path to a Dragonfly Model (DFJSON or DFpkl) file.</p></li>
+<li><p><strong>full_geometry</strong> – Boolean to note if the multipliers on each Story should
+be passed along to the generated Honeybee Room objects or if full
+geometry objects should be written for each story in the building.</p></li>
+<li><p><strong>no_plenum</strong> – Boolean to indicate whether ceiling/floor plenum depths
+assigned to Room2Ds should generate distinct 3D Rooms in the
+translation. (Default: False).</p></li>
+<li><p><strong>ceil_adjacency</strong> – Boolean to indicate whether adjacencies should be solved
+between interior stories when Room2D floor and ceiling geometries
+are coplanar. This ensures that Surface boundary conditions are used
+instead of Adiabatic ones.</p></li>
+<li><p><strong>merge_method</strong> – <p>An optional text string to describe how the Room2Ds should
+be merged into individual Rooms during the translation. Specifying a
+value here can be an effective way to reduce the number of Room volumes
+in the resulting Model. Note that Room2Ds will only be merged if they
+form a contiguous volume. Otherwise, there will be multiple Rooms per
+zone or story, each with an integer added at the end of their
+identifiers. Choose from the following options:</p>
+<ul>
+<li><p>None - No merging of Room2Ds will occur</p></li>
+<li><p>Zones - Room2Ds in the same zone will be merged</p></li>
+<li><p>PlenumZones - Only plenums in the same zone will be merged</p></li>
+<li><p>Stories - Rooms in the same story will be merged</p></li>
+<li><p>PlenumStories - Only plenums in the same story will be merged</p></li>
+</ul>
+</p></li>
+<li><p><strong>color_by</strong> – Text for the property that dictates the colors of the Model
+geometry. Choose from: type, boundary_condition, none. If none, only
+a wireframe of the Model will be generated (assuming the exclude_wireframe
+option is not used). None is useful when the primary purpose of  the
+visualization is to display results in relation to the Model geometry
+or display some room_attr or face_attr as an AnalysisGeometry or Text labels.</p></li>
+<li><p><strong>exclude_wireframe</strong> – Boolean to note whether a ContextGeometry dedicated to
+the Model Wireframe (in DisplayLineSegment3D) should be included in
+the output visualization.</p></li>
+<li><p><strong>faces</strong> – Boolean to note whether the colored model geometries should be
+represented with DisplayMesh3D objects instead of DisplayFace3D objects.
+Meshes can usually be rendered  faster and they scale well for large models
+but all geometry is triangulated (meaning that their wireframe in certain
+platforms might not appear ideal).</p></li>
+<li><p><strong>hide_color_by</strong> – Boolean to note whether the color-by geometry should be
+hidden or shown by default. Hiding the color-by geometry is useful
+when the primary purpose of the visualization is to display grid_data
+or room/face attributes but it is still desirable to have the option
+to turn on the geometry.</p></li>
+<li><p><strong>room_attr</strong> – An optional text string of an attribute that the Model Rooms
+have, which will be used to construct a visualization of this attribute
+in the resulting VisualizationSet. A list of text can also
+be passed and a separate VisualizationData will be added to the
+AnalysisGeometry that represents the attribute in the resulting
+VisualizationSet (or a separate ContextGeometry layer if text_attr
+is True). Room attributes input here can have . that separates the nested
+attributes from one another. For example, properties.energy.program_type.</p></li>
+<li><p><strong>face_attr</strong> – An optional text string of an attribute that the Model Faces
+have, which will be used to construct a visualization of this attribute
+in the resulting VisualizationSet. A list of text can also be passed and
+a separate VisualizationData will be added to the AnalysisGeometry that ‘
+represents the attribute in the resulting VisualizationSet (or a separate ‘
+ContextGeometry layer if text_attr is True). Face attributes input
+here can have . that separates the nested attributes from one another.
+For example, properties.energy.construction.</p></li>
+<li><p><strong>text_attr</strong> – Boolean to note whether to note whether the input room_attr
+and face_attr should be expressed as a colored AnalysisGeometry
+or a ContextGeometry as text labels.</p></li>
+<li><p><strong>grid_display_mode</strong> – Text that dictates how the ContextGeometry for Model
+SensorGrids should display in the resulting visualization. The Default
+option will draw sensor points whenever there is no grid_data_path
+and will not draw them at all when grid data is provided, assuming
+the AnalysisGeometry of the grids is sufficient. Choose from: Default,
+Points, Wireframe, Surface, SurfaceWithEdges, None.</p></li>
+<li><p><strong>hide_grid</strong> – Boolean to note whether the SensorGrid ContextGeometry should
+be hidden or shown by default.</p></li>
+<li><p><strong>output_format</strong> – Text for the output format of the resulting VisualizationSet
+File (.vsf). Choose from: vsf, json, pkl, vtkjs, html. Note that both
+vsf and json refer to the the JSON version of the VisualizationSet
+file and the distinction between the two is only for help in
+coordinating file extensions (since both .vsf and .json can be
+acceptable). Also note that ladybug-vtk must be installed in order
+for the vtkjs or html options to be usable and the html format
+refers to a web page with the vtkjs file embedded within it.</p></li>
+<li><p><strong>output_file</strong> – Optional file to output the string of the visualization
+file contents. If None, the string will simply be returned from
+this method.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

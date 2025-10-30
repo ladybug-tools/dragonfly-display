@@ -1,0 +1,7 @@
+main
+====
+
+.. click:: dragonfly_display.cli.__init__:display
+   :prog: dragonfly-display
+   :show-nested:
+   :commands: model-to-vis ,model-envelope-edges-to-vis ,model-comparison-to-vis

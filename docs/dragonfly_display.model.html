@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>dragonfly_display.model module &#8212; dragonfly display  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=0b9525ea" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="dragonfly_display.cli package" href="dragonfly_display.cli.html" />
+<link rel="icon" type="image/x-icon" href="https://github.com/ladybug-tools/artwork/raw/refs/heads/master/icons_bugs/ico/dragonfly.ico">
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          dragonfly display</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli/index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/index.html#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cli/main.html">main</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/main.html#dragonfly-display">dragonfly-display</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="cli/main.html#dragonfly-display-model-to-vis">model-to-vis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cli/main.html#dragonfly-display-model-envelope-edges-to-vis">model-envelope-edges-to-vis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cli/main.html#dragonfly-display-model-comparison-to-vis">model-comparison-to-vis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">dragonfly_display</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="dragonfly_display.html">dragonfly_display package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="dragonfly_display.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dragonfly_display.cli.html">dragonfly_display.cli package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="dragonfly_display.cli.html#module-dragonfly_display.cli">Module contents</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="dragonfly_display.cli.html#dragonfly_display.cli.model_comparison_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_comparison_to_vis_set()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="dragonfly_display.cli.html#dragonfly_display.cli.model_envelope_edges_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_envelope_edges_to_vis_set()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="dragonfly_display.cli.html#dragonfly_display.cli.model_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_to_vis_set()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="dragonfly_display.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">dragonfly_display.model module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly_display.model.model_comparison_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_comparison_to_vis_set()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly_display.model.model_envelope_edges_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_envelope_edges_to_vis_set()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly_display.model.model_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_to_vis_set()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dragonfly_display.html#module-dragonfly_display">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Docs</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">dragonfly_display</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="dragonfly_display.html">dragonfly_display package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="dragonfly_display.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="dragonfly_display.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">dragonfly_display.model module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly_display.model.model_comparison_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_comparison_to_vis_set()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly_display.model.model_envelope_edges_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_envelope_edges_to_vis_set()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly_display.model.model_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_to_vis_set()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dragonfly_display.html#module-dragonfly_display">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="dragonfly_display.cli.html" title="Previous Chapter: dragonfly_display.cli package"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; dragonfly_dis...</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/dragonfly_display.model.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Docs</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">dragonfly_display</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="dragonfly_display.html">dragonfly_display package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="dragonfly_display.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="dragonfly_display.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">dragonfly_display.model module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly_display.model.model_comparison_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_comparison_to_vis_set()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly_display.model.model_envelope_edges_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_envelope_edges_to_vis_set()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly_display.model.model_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_to_vis_set()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dragonfly_display.html#module-dragonfly_display">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <section id="module-dragonfly_display.model">
+<span id="dragonfly-display-model-module"></span><h1>dragonfly_display.model module<a class="headerlink" href="#module-dragonfly_display.model" title="Link to this heading">¶</a></h1>
+<p>Method to translate a Dragonfly Model to a VisualizationSet.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="dragonfly_display.model.model_comparison_to_vis_set">
+<span class="sig-prename descclassname"><span class="pre">dragonfly_display.model.</span></span><span class="sig-name descname"><span class="pre">model_comparison_to_vis_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incoming_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multiplier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_plenums</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solve_ceiling_adjacencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incoming_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset_coordinates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonfly_display/model.html#model_comparison_to_vis_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dragonfly_display.model.model_comparison_to_vis_set" title="Link to this definition">¶</a></dt>
+<dd><p>Translate two Dragonfly Models to be compared to a VisualizationSet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_model</strong> – A Dragonfly Model object for the base model used in the
+comparison. Typically, this is the model with more data to be kept.</p></li>
+<li><p><strong>incoming_model</strong> – A Dragonfly Model object for the incoming model used in the
+comparison. Typically, this is the model with new data to be
+evaluated against the base model.</p></li>
+<li><p><strong>use_multiplier</strong> – If True, the multipliers on this Model’s Stories will be
+passed along to the generated Honeybee Room objects, indicating the
+simulation will be run once for each unique room and then results
+will be multiplied. If False, full geometry objects will be written
+for each and every floor in the building that are represented through
+multipliers and all resulting multipliers will be 1. (Default: True).</p></li>
+<li><p><strong>exclude_plenums</strong> – Boolean to indicate whether ceiling/floor plenum depths
+assigned to Room2Ds should be ignored during translation. This
+results in each Room2D translating to a single Honeybee Room at
+the full floor_to_ceiling_height instead of a base Room with (a)
+plenum Room(s). (Default: False).</p></li>
+<li><p><strong>solve_ceiling_adjacencies</strong> – Boolean to note whether adjacencies should be
+solved between interior stories when Room2D floor and ceiling
+geometries are coplanar. This ensures that Surface boundary
+conditions are used instead of Adiabatic ones. Note that this input
+has no effect when the object_per_model is Story. (Default: False).</p></li>
+<li><p><strong>merge_method</strong> – <p>An optional text string to describe how the Room2Ds should
+be merged into individual Rooms during the translation. Specifying a
+value here can be an effective way to reduce the number of Room volumes
+in the resulting Model. Note that Room2Ds will only be merged if they
+form a contiguous volume. Otherwise, there will be multiple Rooms per
+zone or story, each with an integer added at the end of their
+identifiers. Choose from the following options:</p>
+<ul>
+<li><p>None - No merging of Room2Ds will occur</p></li>
+<li><p>Zones - Room2Ds in the same zone will be merged</p></li>
+<li><p>PlenumZones - Only plenums in the same zone will be merged</p></li>
+<li><p>Stories - Rooms in the same story will be merged</p></li>
+<li><p>PlenumStories - Only plenums in the same story will be merged</p></li>
+</ul>
+</p></li>
+<li><p><strong>base_color</strong> – An optional ladybug Color to set the color of the base model.
+If None, a default blue color will be used. (Default: None).</p></li>
+<li><p><strong>incoming_color</strong> – An optional ladybug Color to set the color of the incoming model.
+If None, a default red color will be used. (Default: None).
+reset_coordinates: Boolean to note whether the coordinate system of the
+model should be reset in the resulting visualization set such that
+the model sits at the origin. This is useful when the resulting
+visualization platform is meant to orbit around the world
+origin. (Default: False).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dragonfly_display.model.model_envelope_edges_to_vis_set">
+<span class="sig-prename descclassname"><span class="pre">dragonfly_display.model.</span></span><span class="sig-name descname"><span class="pre">model_envelope_edges_to_vis_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coplanar_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'FloorPlatesOnly'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mullion_thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset_coordinates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonfly_display/model.html#model_envelope_edges_to_vis_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dragonfly_display.model.model_envelope_edges_to_vis_set" title="Link to this definition">¶</a></dt>
+<dd><p>Translate a Dragonfly Model to a VisualizationSet with edges highlighted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – A Dragonfly Model object which will have its edges converted to
+a VisualizationSet.</p></li>
+<li><p><strong>coplanar_type</strong> – <p>Text to indicate whether any edges between coplanar envelope
+faces should be included in the result. Most coplanar edges in the
+envelope do not correspond to real physical thermal bridges but edges
+where interior floor plates align with exterior walls might result
+in bridges. Choose from the following options. (Default: FloorPlatesOnly).</p>
+<ul>
+<li><p>None</p></li>
+<li><p>FloorPlatesOnly</p></li>
+<li><p>All</p></li>
+</ul>
+</p></li>
+<li><p><strong>mullion_thickness</strong> – The maximum difference that apertures or doors can be from
+one another for the edges to be considered a mullion rather than
+a frame. If None, all edges of apertures and doors will be considered
+frames rather than mullions.</p></li>
+<li><p><strong>reset_coordinates</strong> – Boolean to note whether the coordinate system of the
+model should be reset in the resulting visualization set such that
+the model sits at the origin. This is useful when the resulting
+visualization platform is meant to orbit around the world
+origin. (Default: False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A VisualizationSet object that represents the model. This includes these
+objects in the following order, though certain layers may be removed if
+the model contains none of a certain case or if they are not relevant
+given the input options.</p>
+<ul class="simple">
+<li><p>Roofs_to_Walls – A ContextGeometry for the envelope edges where
+roofs meet exterior walls (or exterior floors).</p></li>
+<li><p>Slabs_to_Walls – A ContextGeometry for the envelope edges where ground
+floor slabs meet exterior walls (or roofs).</p></li>
+<li><p>Exposed_Floors_to_Walls – A ContextGeometry for the envelope edges
+where exposed floors meet exterior walls.</p></li>
+<li><p>Interior_Floors_to_Walls – A ContextGeometry for the envelope edges
+where interior floors meet exterior walls.</p></li>
+<li><p>Walls_to_Walls – A ContextGeometry for the envelope edges where
+exterior walls meet (as in corners of buildings).</p></li>
+<li><p>Roof_Ridges – A ContextGeometry for the envelope edges where exterior
+roofs meet.</p></li>
+<li><p>Exposed_Floors_to_Floors – A ContextGeometry for the envelope edges
+where exposed floors meet.</p></li>
+<li><p>Underground – A ContextGeometry for the envelope edges where
+underground faces meet.</p></li>
+<li><p>Window_Frames – A ContextGeometry for the edges where apertures meet
+their parent exterior wall or roof.</p></li>
+<li><p>Window_Mullions – A ContextGeometry for the edges where apertures
+meet one another.</p></li>
+<li><p>Door_Frames – A ContextGeometry for the edges where doors meet
+their parent exterior wall or roof.</p></li>
+<li><p>Door_Mullions – A ContextGeometry for the edges where doors meet
+one another.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dragonfly_display.model.model_to_vis_set">
+<span class="sig-prename descclassname"><span class="pre">dragonfly_display.model.</span></span><span class="sig-name descname"><span class="pre">model_to_vis_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multiplier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_plenums</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solve_ceiling_adjacencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'type'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_wireframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_color_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">room_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">face_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_display_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset_coordinates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonfly_display/model.html#model_to_vis_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dragonfly_display.model.model_to_vis_set" title="Link to this definition">¶</a></dt>
+<dd><p>Translate a Dragonfly Model to a VisualizationSet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – A Dragonfly Model object to be converted to a VisualizationSet.</p></li>
+<li><p><strong>use_multiplier</strong> – If True, the multipliers on this Model’s Stories will be
+passed along to the generated Honeybee Room objects, indicating the
+simulation will be run once for each unique room and then results
+will be multiplied. If False, full geometry objects will be written
+for each and every floor in the building that are represented through
+multipliers and all resulting multipliers will be 1. (Default: True).</p></li>
+<li><p><strong>exclude_plenums</strong> – Boolean to indicate whether ceiling/floor plenum depths
+assigned to Room2Ds should be ignored during translation. This
+results in each Room2D translating to a single Honeybee Room at
+the full floor_to_ceiling_height instead of a base Room with (a)
+plenum Room(s). (Default: False).</p></li>
+<li><p><strong>solve_ceiling_adjacencies</strong> – Boolean to note whether adjacencies should be
+solved between interior stories when Room2D floor and ceiling
+geometries are coplanar. This ensures that Surface boundary
+conditions are used instead of Adiabatic ones. Note that this input
+has no effect when the object_per_model is Story. (Default: False).</p></li>
+<li><p><strong>merge_method</strong> – <p>An optional text string to describe how the Room2Ds should
+be merged into individual Rooms during the translation. Specifying a
+value here can be an effective way to reduce the number of Room volumes
+in the resulting Model. Note that Room2Ds will only be merged if they
+form a contiguous volume. Otherwise, there will be multiple Rooms per
+zone or story, each with an integer added at the end of their
+identifiers. Choose from the following options:</p>
+<ul>
+<li><p>None - No merging of Room2Ds will occur</p></li>
+<li><p>Zones - Room2Ds in the same zone will be merged</p></li>
+<li><p>PlenumZones - Only plenums in the same zone will be merged</p></li>
+<li><p>Stories - Rooms in the same story will be merged</p></li>
+<li><p>PlenumStories - Only plenums in the same story will be merged</p></li>
+</ul>
+</p></li>
+<li><p><strong>color_by</strong> – <p>Text that dictates the colors of the Model geometry.
+If none, only a wireframe of the Model will be generated, assuming
+include_wireframe is True. This is useful when the primary purpose of
+the visualization is to display results in relation to the Model
+geometry or display some room_attrs or face_attrs as an AnalysisGeometry
+or Text labels. (Default: type). Choose from the following:</p>
+<ul>
+<li><p>type</p></li>
+<li><p>boundary_condition</p></li>
+<li><p>None</p></li>
+</ul>
+</p></li>
+<li><p><strong>include_wireframe</strong> – Boolean to note whether a ContextGeometry dedicated to
+the Model Wireframe (in DisplayLineSegment3D) should be included
+in the output VisualizationSet. (Default: True).</p></li>
+<li><p><strong>use_mesh</strong> – Boolean to note whether the colored model geometries should
+be represented with DisplayMesh3D objects (True) instead of DisplayFace3D
+objects (False). Meshes can usually be rendered faster and they scale
+well for large models but all geometry is triangulated (meaning that
+the wireframe in certain platforms might not appear ideal). (Default: True).</p></li>
+<li><p><strong>hide_color_by</strong> – Boolean to note whether the color_by geometry should be
+hidden or shown by default. Hiding the color-by geometry is useful
+when the primary purpose of the visualization is to display grid_data
+or room/face attributes but it is still desirable to have the option
+to turn on the geometry.</p></li>
+<li><p><strong>room_attrs</strong> – An optional list of room attribute objects from the
+honeybee_display.attr module.</p></li>
+<li><p><strong>face_attrs</strong> – An optional list of face attribute objects from the
+honeybee_display.attr module.</p></li>
+<li><p><strong>grid_display_mode</strong> – <p>Text that dictates how the ContextGeometry for Model
+SensorGrids should display in the resulting visualization. The Default
+option will draw sensor points. Choose from the following:</p>
+<ul>
+<li><p>Default</p></li>
+<li><p>Points</p></li>
+<li><p>Wireframe</p></li>
+<li><p>Surface</p></li>
+<li><p>SurfaceWithEdges</p></li>
+<li><p>None</p></li>
+</ul>
+</p></li>
+<li><p><strong>hide_grid</strong> – Boolean to note whether the SensorGrid ContextGeometry should be
+hidden or shown by default. (Default: False).</p></li>
+<li><p><strong>reset_coordinates</strong> – Boolean to note whether the coordinate system of the
+model should be reset in the resulting visualization set such that
+the model sits at the origin. This is useful when the resulting
+visualization platform is meant to orbit around the world
+origin. (Default: False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A VisualizationSet object that represents the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

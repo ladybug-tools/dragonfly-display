@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>main &#8212; dragonfly display  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=0b9525ea" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="dragonfly_display" href="../modules.html" />
+    <link rel="prev" title="CLI Docs" href="index.html" />
+<link rel="icon" type="image/x-icon" href="https://github.com/ladybug-tools/artwork/raw/refs/heads/master/icons_bugs/ico/dragonfly.ico">
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          dragonfly display</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">CLI Docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#installation">Installation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#commands">Commands</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">main</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dragonfly-display">dragonfly-display</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly-display-model-to-vis">model-to-vis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly-display-model-envelope-edges-to-vis">model-envelope-edges-to-vis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly-display-model-comparison-to-vis">model-comparison-to-vis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">dragonfly_display</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dragonfly_display.html">dragonfly_display package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dragonfly_display.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dragonfly_display.cli.html">dragonfly_display.cli package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../dragonfly_display.cli.html#module-dragonfly_display.cli">Module contents</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../dragonfly_display.cli.html#dragonfly_display.cli.model_comparison_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_comparison_to_vis_set()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../dragonfly_display.cli.html#dragonfly_display.cli.model_envelope_edges_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_envelope_edges_to_vis_set()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../dragonfly_display.cli.html#dragonfly_display.cli.model_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_to_vis_set()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dragonfly_display.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dragonfly_display.model.html">dragonfly_display.model module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../dragonfly_display.model.html#dragonfly_display.model.model_comparison_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_comparison_to_vis_set()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../dragonfly_display.model.html#dragonfly_display.model.model_envelope_edges_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_envelope_edges_to_vis_set()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../dragonfly_display.model.html#dragonfly_display.model.model_to_vis_set"><code class="docutils literal notranslate"><span class="pre">model_to_vis_set()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dragonfly_display.html#module-dragonfly_display">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">CLI Docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#installation">Installation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#commands">Commands</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">main</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dragonfly-display">dragonfly-display</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly-display-model-to-vis">model-to-vis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly-display-model-envelope-edges-to-vis">model-envelope-edges-to-vis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly-display-model-comparison-to-vis">model-comparison-to-vis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">dragonfly_display</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: CLI Docs"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; CLI Docs</span>
+    </a>
+  </li>
+  <li>
+    <a href="../modules.html" title="Next Chapter: dragonfly_display"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">dragonfly_display &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cli/main.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">CLI Docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#installation">Installation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#commands">Commands</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">main</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dragonfly-display">dragonfly-display</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly-display-model-to-vis">model-to-vis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly-display-model-envelope-edges-to-vis">model-envelope-edges-to-vis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dragonfly-display-model-comparison-to-vis">model-comparison-to-vis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">dragonfly_display</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <section id="main">
+<h1>main<a class="headerlink" href="#main" title="Link to this heading">¶</a></h1>
+<section id="dragonfly-display">
+<h2>dragonfly-display<a class="headerlink" href="#dragonfly-display" title="Link to this heading">¶</a></h2>
+<p>dragonfly display commands.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dragonfly-display<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-version">
+<span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-version" title="Link to this definition">¶</a></dt>
+<dd><p>Show the version and exit.</p>
+</dd></dl>
+
+<section id="dragonfly-display-model-to-vis">
+<h3>model-to-vis<a class="headerlink" href="#dragonfly-display-model-to-vis" title="Link to this heading">¶</a></h3>
+<p>Translate a Dragonfly Model file (.dfjson) to a VisualizationSet file (.vsf).</p>
+<p>This command can also optionally translate the Dragonfly Model to a .vtkjs file,
+which can be visualized in the open source Visual ToolKit (VTK) platform.</p>
+<div class="line-block">
+<div class="line">Args:</div>
+<div class="line-block">
+<div class="line">model_file: Full path to a Dragonfly Model (DFJSON or DFpkl) file.</div>
+</div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dragonfly-display<span class="w"> </span>model-to-vis<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>MODEL_FILE
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-multiplier">
+<span id="cmdoption-dragonfly-display-model-to-vis-fg"></span><span id="cmdoption-dragonfly-display-model-to-vis-full-geometry"></span><span class="sig-name descname"><span class="pre">--multiplier</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-fg</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--full-geometry</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-multiplier" title="Link to this definition">¶</a></dt>
+<dd><p>Flag to note if the multipliers on each Building story should be passed along to the generated Honeybee Room objects or if full geometry objects should be written for each story in the building.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-p">
+<span id="cmdoption-dragonfly-display-model-to-vis-plenum"></span><span id="cmdoption-dragonfly-display-model-to-vis-np"></span><span id="cmdoption-dragonfly-display-model-to-vis-no-plenum"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--plenum</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-np</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-plenum</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-p" title="Link to this definition">¶</a></dt>
+<dd><p>Flag to indicate whether ceiling/floor plenum depths assigned to Room2Ds should generate distinct 3D Rooms in the translation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-no-ceil-adjacency">
+<span id="cmdoption-dragonfly-display-model-to-vis-a"></span><span id="cmdoption-dragonfly-display-model-to-vis-ceil-adjacency"></span><span class="sig-name descname"><span class="pre">--no-ceil-adjacency</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-a</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--ceil-adjacency</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-no-ceil-adjacency" title="Link to this definition">¶</a></dt>
+<dd><p>Flag to indicate whether adjacencies should be solved between interior stories when Room2D floor and ceiling geometries are coplanar. This ensures that Surface boundary conditions are used instead of Adiabatic ones.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-merge-method">
+<span class="sig-name descname"><span class="pre">--merge-method</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;merge_method&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-merge-method" title="Link to this definition">¶</a></dt>
+<dd><p>Text to describe how the Room2Ds should be merged into individual Rooms during the translation. Specifying a value here can be an effective way to reduce the number of Room volumes in the resulting 3D Honeybee Model and, ultimately, yield a faster simulation time in the destination engine with fewer results to manage. Choose from: None, Zones, PlenumZones, Stories, PlenumStories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'None'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-c">
+<span id="cmdoption-dragonfly-display-model-to-vis-color-by"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--color-by</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;color_by&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-c" title="Link to this definition">¶</a></dt>
+<dd><p>Text for the property that dictates the colors of the Model geometry. Choose from: type, boundary_condition, none. If none, only a wireframe of the Model will be generated (assuming the –exclude-wireframe option is not used). None is useful when the primary purpose of  the visualization is to display results in relation to the Model geometry or display some room_attr or face_attr as an AnalysisGeometry or Text labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'type'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-wireframe">
+<span id="cmdoption-dragonfly-display-model-to-vis-xw"></span><span id="cmdoption-dragonfly-display-model-to-vis-exclude-wireframe"></span><span class="sig-name descname"><span class="pre">--wireframe</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-xw</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--exclude-wireframe</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-wireframe" title="Link to this definition">¶</a></dt>
+<dd><p>Flag to note whether a ContextGeometry dedicated to the Model Wireframe (in DisplayLineSegment3D) should be included in the output VisualizationSet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-mesh">
+<span id="cmdoption-dragonfly-display-model-to-vis-faces"></span><span class="sig-name descname"><span class="pre">--mesh</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--faces</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-mesh" title="Link to this definition">¶</a></dt>
+<dd><p>Flag to note whether the colored model geometries should be represented with DisplayMesh3D objects instead of DisplayFace3D objects. Meshes can usually be rendered  faster and they scale well for large models but all geometry is triangulated (meaning that their wireframe in certain platforms might not appear ideal).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-show-color-by">
+<span id="cmdoption-dragonfly-display-model-to-vis-hcb"></span><span id="cmdoption-dragonfly-display-model-to-vis-hide-color-by"></span><span class="sig-name descname"><span class="pre">--show-color-by</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-hcb</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--hide-color-by</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-show-color-by" title="Link to this definition">¶</a></dt>
+<dd><p>Flag to note whether the color-by geometry should be hidden or shown by default. Hiding the color-by geometry is useful when the primary purpose of the visualization is to display grid-data or room/face attributes but it is still desirable to have the option to turn on the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-r">
+<span id="cmdoption-dragonfly-display-model-to-vis-room-attr"></span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--room-attr</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;room_attr&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-r" title="Link to this definition">¶</a></dt>
+<dd><p>An optional text string of an attribute that the Model Rooms have, which will be used to construct a visualization of this attribute in the resulting VisualizationSet. Multiple instances of this option can be passed and a separate VisualizationData will be added to the AnalysisGeometry that represents the attribute in the resulting VisualizationSet (or a separate ContextGeometry layer if –text-attr is True). Room attributes input here can have . that separates the nested attributes from one another. For example, properties.energy.program_type.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-f">
+<span id="cmdoption-dragonfly-display-model-to-vis-face-attr"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--face-attr</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;face_attr&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-f" title="Link to this definition">¶</a></dt>
+<dd><p>An optional text string of an attribute that the Model Faces have, which will be used to construct a visualization of this attribute in the resulting VisualizationSet. Multiple instances of this option can be passed and a separate VisualizationData will be added to the AnalysisGeometry that represents the attribute in the resulting VisualizationSet (or a separate ContextGeometry layer if –text-attr is True). Face attributes input here can have . that separates the nested attributes from one another. For example, properties.energy.construction.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-color-attr">
+<span id="cmdoption-dragonfly-display-model-to-vis-text-attr"></span><span class="sig-name descname"><span class="pre">--color-attr</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--text-attr</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-color-attr" title="Link to this definition">¶</a></dt>
+<dd><p>Flag to note whether to note whether the input room-attr and face-attr should be expressed as a colored AnalysisGeometry or a ContextGeometry as text labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-m">
+<span id="cmdoption-dragonfly-display-model-to-vis-grid-display-mode"></span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--grid-display-mode</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;grid_display_mode&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-m" title="Link to this definition">¶</a></dt>
+<dd><p>Text that dictates how the ContextGeometry for Model SensorGrids should display in the resulting visualization. The Default option will draw sensor points whenever there is no grid_data_path and will not draw them at all when grid data is provided, assuming the AnalysisGeometry of the grids is sufficient. Choose from: Default, Points, Wireframe, Surface, SurfaceWithEdges, None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'Default'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-show-grid">
+<span id="cmdoption-dragonfly-display-model-to-vis-hg"></span><span id="cmdoption-dragonfly-display-model-to-vis-hide-grid"></span><span class="sig-name descname"><span class="pre">--show-grid</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-hg</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--hide-grid</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-show-grid" title="Link to this definition">¶</a></dt>
+<dd><p>Flag to note whether the SensorGrid ContextGeometry should be hidden or shown by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-of">
+<span id="cmdoption-dragonfly-display-model-to-vis-output-format"></span><span class="sig-name descname"><span class="pre">-of</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output-format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_format&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-of" title="Link to this definition">¶</a></dt>
+<dd><p>Text for the output format of the resulting VisualizationSet File (.vsf). Choose from: vsf, json, pkl, vtkjs, html. Note that both vsf and json refer to the the JSON version of the VisualizationSet file and the distinction between the two is only for help in coordinating file extensions (since both .vsf and .json can be acceptable). Also note that ladybug-vtk must be installed in order for the vtkjs or html options to be usable and the html format refers to a web page with the vtkjs file embedded within it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'vsf'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-output-file">
+<span class="sig-name descname"><span class="pre">--output-file</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_file&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-output-file" title="Link to this definition">¶</a></dt>
+<dd><p>Optional file to output the string of the visualization file contents. By default, it will be printed out to stdout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'-'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-to-vis-arg-MODEL_FILE">
+<span class="sig-name descname"><span class="pre">MODEL_FILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-to-vis-arg-MODEL_FILE" title="Link to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="dragonfly-display-model-envelope-edges-to-vis">
+<h3>model-envelope-edges-to-vis<a class="headerlink" href="#dragonfly-display-model-envelope-edges-to-vis" title="Link to this heading">¶</a></h3>
+<p>Translate a Dragonfly Model to a VisualizationSet with edges highlighted.</p>
+<div class="line-block">
+<div class="line">Args:</div>
+<div class="line-block">
+<div class="line">model_file: Full path to a Dragonfly Model (DFJSON or DFpkl) file,</div>
+<div class="line-block">
+<div class="line">which will have its envelope edges converted to a VisualizationSet.</div>
+</div>
+</div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dragonfly-display<span class="w"> </span>model-envelope-edges-to-vis<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>MODEL_FILE
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-envelope-edges-to-vis-c">
+<span id="cmdoption-dragonfly-display-model-envelope-edges-to-vis-coplanar-type"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--coplanar-type</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;coplanar_type&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-envelope-edges-to-vis-c" title="Link to this definition">¶</a></dt>
+<dd><p>Text to indicate how any edges between coplanar envelope faces should be included in the result. Most coplanar edges in the envelope do not correspond to physical thermal bridges but edges where interior floor plates align with exterior walls might result in bridges. Choose from: None, FloorPlatesOnly, All.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'FloorPlatesOnly'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-envelope-edges-to-vis-m">
+<span id="cmdoption-dragonfly-display-model-envelope-edges-to-vis-mullion-thickness"></span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--mullion-thickness</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;mullion_thickness&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-envelope-edges-to-vis-m" title="Link to this definition">¶</a></dt>
+<dd><p>An optional positive number that sets the maximum difference that windows or doors can be from one another for the edges to be considered a mullion rather than a frame. This can include the units of the distance (eg. 0.3ft) or, if no units are provided, the value will be interpreted in the honeybee model units. If unspecified, all edges of windows and doors will be considered frames rather than mullions.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-envelope-edges-to-vis-of">
+<span id="cmdoption-dragonfly-display-model-envelope-edges-to-vis-output-format"></span><span class="sig-name descname"><span class="pre">-of</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output-format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_format&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-envelope-edges-to-vis-of" title="Link to this definition">¶</a></dt>
+<dd><p>Text for the output format of the resulting VisualizationSet File (.vsf). Choose from: vsf, json, pkl, vtkjs, html. Note that both vsf and json refer to the the JSON version of the VisualizationSet file and the distinction between the two is only for help in coordinating file extensions (since both .vsf and .json can be acceptable). Also note that ladybug-vtk must be installed in order for the vtkjs or html options to be usable and the html format refers to a web page with the vtkjs file embedded within it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'vsf'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-envelope-edges-to-vis-output-file">
+<span class="sig-name descname"><span class="pre">--output-file</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_file&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-envelope-edges-to-vis-output-file" title="Link to this definition">¶</a></dt>
+<dd><p>Optional file to output the he string of the visualization file contents. By default, it will be printed out to stdout</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'-'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-envelope-edges-to-vis-arg-MODEL_FILE">
+<span class="sig-name descname"><span class="pre">MODEL_FILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-envelope-edges-to-vis-arg-MODEL_FILE" title="Link to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="dragonfly-display-model-comparison-to-vis">
+<h3>model-comparison-to-vis<a class="headerlink" href="#dragonfly-display-model-comparison-to-vis" title="Link to this heading">¶</a></h3>
+<p>Translate two Dragonfly Models to be compared to a VisualizationSet.</p>
+<p>This command can also optionally translate the Dragonfly Model to a .vtkjs file,
+which can be visualized in the open source Visual ToolKit (VTK) platform.</p>
+<div class="line-block">
+<div class="line">Args:</div>
+<div class="line-block">
+<div class="line">base_model_file: Full path to a Dragonfly Model (DFJSON or HBpkl) file</div>
+<div class="line-block">
+<div class="line">representing the base model used in the comparison. Typically, this</div>
+<div class="line">is the model with more data to be kept.</div>
+</div>
+<div class="line">incoming_model_file: Full path to a Dragonfly Model (DFJSON or HBpkl) file</div>
+<div class="line-block">
+<div class="line">representing the incoming model used in the comparison. Typically,</div>
+<div class="line">this is the model with new data to be evaluated against the base model.</div>
+</div>
+</div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dragonfly-display<span class="w"> </span>model-comparison-to-vis<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>BASE_MODEL_FILE
+<span class="w">                                          </span>INCOMING_MODEL_FILE
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-comparison-to-vis-multiplier">
+<span id="cmdoption-dragonfly-display-model-comparison-to-vis-fg"></span><span id="cmdoption-dragonfly-display-model-comparison-to-vis-full-geometry"></span><span class="sig-name descname"><span class="pre">--multiplier</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-fg</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--full-geometry</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-comparison-to-vis-multiplier" title="Link to this definition">¶</a></dt>
+<dd><p>Flag to note if the multipliers on each Building story should be passed along to the generated Honeybee Room objects or if full geometry objects should be written for each story in the building.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-comparison-to-vis-p">
+<span id="cmdoption-dragonfly-display-model-comparison-to-vis-plenum"></span><span id="cmdoption-dragonfly-display-model-comparison-to-vis-np"></span><span id="cmdoption-dragonfly-display-model-comparison-to-vis-no-plenum"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--plenum</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-np</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-plenum</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-comparison-to-vis-p" title="Link to this definition">¶</a></dt>
+<dd><p>Flag to indicate whether ceiling/floor plenum depths assigned to Room2Ds should generate distinct 3D Rooms in the translation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-comparison-to-vis-no-ceil-adjacency">
+<span id="cmdoption-dragonfly-display-model-comparison-to-vis-a"></span><span id="cmdoption-dragonfly-display-model-comparison-to-vis-ceil-adjacency"></span><span class="sig-name descname"><span class="pre">--no-ceil-adjacency</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-a</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--ceil-adjacency</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-comparison-to-vis-no-ceil-adjacency" title="Link to this definition">¶</a></dt>
+<dd><p>Flag to indicate whether adjacencies should be solved between interior stories when Room2D floor and ceiling geometries are coplanar. This ensures that Surface boundary conditions are used instead of Adiabatic ones.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-comparison-to-vis-merge-method">
+<span class="sig-name descname"><span class="pre">--merge-method</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;merge_method&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-comparison-to-vis-merge-method" title="Link to this definition">¶</a></dt>
+<dd><p>Text to describe how the Room2Ds should be merged into individual Rooms during the translation. Specifying a value here can be an effective way to reduce the number of Room volumes in the resulting 3D Honeybee Model and, ultimately, yield a faster simulation time in the destination engine with fewer results to manage. Choose from: None, Zones, PlenumZones, Stories, PlenumStories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'None'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-comparison-to-vis-bc">
+<span id="cmdoption-dragonfly-display-model-comparison-to-vis-base-color"></span><span class="sig-name descname"><span class="pre">-bc</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--base-color</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;base_color&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-comparison-to-vis-bc" title="Link to this definition">¶</a></dt>
+<dd><p>An optional hexadecimal code for the color of the base model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'#74eded'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-comparison-to-vis-ic">
+<span id="cmdoption-dragonfly-display-model-comparison-to-vis-incoming-color"></span><span class="sig-name descname"><span class="pre">-ic</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--incoming-color</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;incoming_color&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-comparison-to-vis-ic" title="Link to this definition">¶</a></dt>
+<dd><p>An optional hexadecimal code for the color of the incoming model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'#ed7474'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-comparison-to-vis-of">
+<span id="cmdoption-dragonfly-display-model-comparison-to-vis-output-format"></span><span class="sig-name descname"><span class="pre">-of</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output-format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_format&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-comparison-to-vis-of" title="Link to this definition">¶</a></dt>
+<dd><p>Text for the output format of the resulting VisualizationSet File (.vsf). Choose from: vsf, json, pkl, vtkjs, html. Note that both vsf and json refer to the the JSON version of the VisualizationSet file and the distinction between the two is only for help in coordinating file extensions (since both .vsf and .json can be acceptable). Also note that ladybug-vtk must be installed in order for the vtkjs or html options to be usable and the html format refers to a web page with the vtkjs file embedded within it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'vsf'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-comparison-to-vis-output-file">
+<span class="sig-name descname"><span class="pre">--output-file</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_file&gt;</span></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-comparison-to-vis-output-file" title="Link to this definition">¶</a></dt>
+<dd><p>Optional file to output the he string of the visualization file contents. By default, it will be printed out to stdout</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'-'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-comparison-to-vis-arg-BASE_MODEL_FILE">
+<span class="sig-name descname"><span class="pre">BASE_MODEL_FILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-comparison-to-vis-arg-BASE_MODEL_FILE" title="Link to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-dragonfly-display-model-comparison-to-vis-arg-INCOMING_MODEL_FILE">
+<span class="sig-name descname"><span class="pre">INCOMING_MODEL_FILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-dragonfly-display-model-comparison-to-vis-arg-INCOMING_MODEL_FILE" title="Link to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
