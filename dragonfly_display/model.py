@@ -1,8 +1,16 @@
 """Method to translate a Dragonfly Model to a VisualizationSet."""
-from ladybug_geometry.geometry3d import Point3D
+import math
+
+from ladybug_geometry.geometry3d import Vector3D, Point3D
+from ladybug.color import Color
+from ladybug_display.geometry3d import DisplayLineSegment3D
+from ladybug_display.visualization import ContextGeometry
+
 from honeybee_display.model import model_to_vis_set as hb_model_to_vis_set
 from honeybee_display.model import model_comparison_to_vis_set as \
     hb_model_comparison_to_vis_set
+from honeybee_display.model import model_envelope_edges_to_vis_set as \
+    hb_model_envelope_edges_to_vis_set
 
 
 def model_to_vis_set(
@@ -98,6 +106,7 @@ def model_to_vis_set(
     """
     # reset the coordinate system if requested
     if reset_coordinates:
+        model = model.duplicate()
         min_pt, max_pt = model.min, model.max
         z_val = model.average_height - model.average_height_above_ground
         center = Point3D((max_pt.x + min_pt.x) / 2, (max_pt.y + min_pt.y) / 2, z_val)
@@ -111,6 +120,125 @@ def model_to_vis_set(
     return hb_model_to_vis_set(
         hb_model, color_by, include_wireframe, use_mesh, hide_color_by,
         room_attrs, face_attrs, grid_display_mode, hide_grid)
+
+
+def model_envelope_edges_to_vis_set(
+    model, coplanar_type='FloorPlatesOnly', mullion_thickness=None,
+    reset_coordinates=False
+):
+    """Translate a Dragonfly Model to a VisualizationSet with edges highlighted.
+
+    Args:
+        model: A Dragonfly Model object which will have its edges converted to
+            a VisualizationSet.
+        coplanar_type: Text to indicate whether any edges between coplanar envelope
+            faces should be included in the result. Most coplanar edges in the
+            envelope do not correspond to real physical thermal bridges but edges
+            where interior floor plates align with exterior walls might result
+            in bridges. Choose from the following options. (Default: FloorPlatesOnly).
+
+            * None
+            * FloorPlatesOnly
+            * All
+
+        mullion_thickness: The maximum difference that apertures or doors can be from
+            one another for the edges to be considered a mullion rather than
+            a frame. If None, all edges of apertures and doors will be considered
+            frames rather than mullions.
+        reset_coordinates: Boolean to note whether the coordinate system of the
+            model should be reset in the resulting visualization set such that
+            the model sits at the origin. This is useful when the resulting
+            visualization platform is meant to orbit around the world
+            origin. (Default: False).
+
+    Returns:
+        A VisualizationSet object that represents the model. This includes these
+        objects in the following order, though certain layers may be removed if
+        the model contains none of a certain case or if they are not relevant
+        given the input options.
+
+        -   Roofs_to_Walls -- A ContextGeometry for the envelope edges where
+            roofs meet exterior walls (or exterior floors).
+
+        -   Slabs_to_Walls -- A ContextGeometry for the envelope edges where ground
+            floor slabs meet exterior walls (or roofs).
+
+        -   Exposed_Floors_to_Walls -- A ContextGeometry for the envelope edges
+            where exposed floors meet exterior walls.
+
+        -   Interior_Floors_to_Walls -- A ContextGeometry for the envelope edges
+            where interior floors meet exterior walls.
+
+        -   Walls_to_Walls -- A ContextGeometry for the envelope edges where
+            exterior walls meet (as in corners of buildings).
+
+        -   Roof_Ridges -- A ContextGeometry for the envelope edges where exterior
+            roofs meet.
+
+        -   Exposed_Floors_to_Floors -- A ContextGeometry for the envelope edges
+            where exposed floors meet.
+
+        -   Underground -- A ContextGeometry for the envelope edges where
+            underground faces meet.
+
+        -   Window_Frames -- A ContextGeometry for the edges where apertures meet
+            their parent exterior wall or roof.
+
+        -   Window_Mullions -- A ContextGeometry for the edges where apertures
+            meet one another.
+
+        -   Door_Frames -- A ContextGeometry for the edges where doors meet
+            their parent exterior wall or roof.
+
+        -   Door_Mullions -- A ContextGeometry for the edges where doors meet
+            one another.
+    """
+    # reset the coordinate system if requested
+    if reset_coordinates:
+        model = model.duplicate()
+        min_pt, max_pt = model.min, model.max
+        z_val = model.average_height - model.average_height_above_ground
+        center = Point3D((max_pt.x + min_pt.x) / 2, (max_pt.y + min_pt.y) / 2, z_val)
+        model.reset_coordinate_system(center)
+
+    # create the Honeybee Model from the Dragonfly one
+    hb_model = model.to_honeybee(
+        'District', use_multiplier=False, exclude_plenums=True,
+        solve_ceiling_adjacencies=True, enforce_adj=False, enforce_solid=True)[0]
+
+    # make the visualization set of envelope edges
+    coplanar_type = str(coplanar_type)
+    exclude_coplanar = False if coplanar_type == 'All' else True
+    vis_set = hb_model_envelope_edges_to_vis_set(
+        hb_model, exclude_coplanar, mullion_thickness)
+
+    # if FloorPlatesOnly option was selected, add it as a layer
+    if coplanar_type == 'FloorPlatesOnly':
+        color = Color(200, 255, 200)
+        up_vec = Vector3D(0, 0, 1)
+        min_ang = (math.pi / 2) - math.radians(model.angle_tolerance)
+        max_ang = (math.pi / 2) + math.radians(model.angle_tolerance)
+
+        _, _, _, ext_walls_to_walls, _, _, _ = \
+            hb_model.classified_envelope_edges(exclude_coplanar=False)
+        interior_floor_plate_to_wall = []
+        for edge in ext_walls_to_walls:
+            if min_ang <= up_vec.angle(edge.v) <= max_ang:
+                interior_floor_plate_to_wall.append(edge)
+        display_edges = [DisplayLineSegment3D(seg, color, 2)
+                         for seg in interior_floor_plate_to_wall]
+        edge_id = 'Interior_Floors_to_Walls'
+        if len(display_edges) != 0:
+            con_geo = ContextGeometry(edge_id, display_edges)
+            con_geo.display_name = edge_id.replace('_', ' ')
+            insert_index = None
+            for i, geo in enumerate(vis_set):
+                if geo.identifier in ('Walls_to_Walls', 'Roof_Ridges', 'Roofs_to_Roofs'):
+                    insert_index = i
+                    break
+            vis_set.add_geometry(con_geo, insert_index)
+
+    return vis_set
 
 
 def model_comparison_to_vis_set(

@@ -5,6 +5,7 @@ from click.testing import CliRunner
 
 from ladybug.commandutil import run_command_function
 from dragonfly_display.cli import model_to_vis_set_cli, model_to_vis_set, \
+    model_envelope_edges_to_vis_set_cli, \
     model_comparison_to_vis_set_cli, model_comparison_to_vis_set
 
 
@@ -42,6 +43,21 @@ def test_model_to_vis_set():
     output_vis = './tests/json/model_with_doors_skylights.html'
     cmd_options['--output-file'] = output_vis
     run_command_function(model_to_vis_set, cmd_args, cmd_options)
+    assert os.path.isfile(output_vis)
+    os.remove(output_vis)
+
+
+def test_model_envelope_edges_to_vis_set_shade_mesh():
+    input_model = './tests/json/model_with_edges.dfjson'
+    output_vis = './tests/json/model_with_edges.html'
+    runner = CliRunner()
+    t0 = time.time()
+    cmd_args = [input_model, '--mullion-thickness', '0.1m',
+                '--output-format', 'html', '--output-file', output_vis]
+    result = runner.invoke(model_envelope_edges_to_vis_set_cli, cmd_args)
+    run_time = time.time() - t0
+    assert result.exit_code == 0
+    assert run_time < 20
     assert os.path.isfile(output_vis)
     os.remove(output_vis)
 
