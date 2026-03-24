@@ -1,0 +1,7 @@
+dragonfly\_display.model module
+===============================
+
+.. automodule:: dragonfly_display.model
+   :members:
+   :undoc-members:
+   :show-inheritance:
