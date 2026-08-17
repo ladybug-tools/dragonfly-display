@@ -54,6 +54,11 @@ def display():
     'to manage. Choose from: None, Zones, PlenumZones, Stories, PlenumStories.',
     type=str, default='None', show_default=True)
 @click.option(
+    '--wall-modifier-json', '-wm', help='Optional path to a JSON file with an '
+    'array of wall modifier lines and/pr polygons that customize the properties '
+    'of walls across the model.', default=None, show_default=True,
+    type=click.Path(exists=True, file_okay=True, dir_okay=False, resolve_path=True))
+@click.option(
     '--color-by', '-c', help='Text for the property that dictates the colors of '
     'the Model geometry. Choose from: type, boundary_condition, none. '
     'If none, only a wireframe of the Model will be generated (assuming the '
@@ -127,7 +132,7 @@ def display():
     'file contents. By default, it will be printed out to stdout.',
     type=click.File('w'), default='-', show_default=True)
 def model_to_vis_set_cli(
-    model_file, multiplier, plenum, no_ceil_adjacency, merge_method,
+    model_file, multiplier, plenum, no_ceil_adjacency, merge_method, wall_modifier_json,
     color_by, wireframe, mesh, show_color_by,
     room_attr, face_attr, color_attr, grid_display_mode, show_grid,
     output_format, output_file
@@ -157,7 +162,7 @@ def model_to_vis_set_cli(
         # pass the input to the function in order to convert the model
         model_to_vis_set(
             model_file, full_geometry, no_plenum, ceil_adjacency, merge_method,
-            color_by, exclude_wireframe, faces, hide_color_by,
+            wall_modifier_json, color_by, exclude_wireframe, faces, hide_color_by,
             room_attrs, face_attrs, text_labels, grid_display_mode,
             hide_grid, output_format, output_file)
     except Exception as e:
@@ -169,8 +174,8 @@ def model_to_vis_set_cli(
 
 def model_to_vis_set(
     model_file, full_geometry=False, no_plenum=False, ceil_adjacency=False,
-    merge_method='Default', color_by='type', exclude_wireframe=False,
-    faces=False, hide_color_by=False,
+    merge_method='Default', wall_modifier_json=None,
+    color_by='type', exclude_wireframe=False, faces=False, hide_color_by=False,
     room_attr=(), face_attr=(), text_attr=False, grid_display_mode='Default',
     hide_grid=False, output_format='vsf', output_file=None,
     multiplier=True, plenum=True, no_ceil_adjacency=True, wireframe=True, mesh=True,
@@ -207,6 +212,9 @@ def model_to_vis_set(
             * Stories - Rooms in the same story will be merged
             * PlenumStories - Only plenums in the same story will be merged
 
+        wall_modifier_json: Optional path to a JSON file with an array of wall
+            modifier lines and/pr polygons that customize the properties of
+            walls across the model.
         color_by: Text for the property that dictates the colors of the Model
             geometry. Choose from: type, boundary_condition, none. If none, only
             a wireframe of the Model will be generated (assuming the exclude_wireframe
@@ -265,8 +273,15 @@ def model_to_vis_set(
             file contents. If None, the string will simply be returned from
             this method.
     """
-    # load the model object and process simpler attributes
+    # load the model object and apply wall modifiers if present
     model_obj = Model.from_file(model_file)
+    if wall_modifier_json:
+        with open(wall_modifier_json, 'r') as wmf:
+            wall_modifier_data = json.load(wmf)
+        wall_modifiers = model_obj.deserialize_wall_modifiers(wall_modifier_data)
+        model_obj.resolve_wall_properties(wall_modifiers)
+
+    # process simpler attributes
     room_attrs = [room_attr] if isinstance(room_attr, str) else room_attr
     face_attrs = [face_attr] if isinstance(face_attr, str) else face_attr
     wireframe = not exclude_wireframe
@@ -303,6 +318,11 @@ def model_to_vis_set(
 @click.argument('model-file', type=click.Path(
     exists=True, file_okay=True, dir_okay=False, resolve_path=True))
 @click.option(
+    '--wall-modifier-json', '-wm', help='Optional path to a JSON file with an '
+    'array of wall modifier lines and/pr polygons that customize the properties '
+    'of walls across the model.', default=None, show_default=True,
+    type=click.Path(exists=True, file_okay=True, dir_okay=False, resolve_path=True))
+@click.option(
     '--coplanar-type', '-c', help='Text to indicate how any edges between '
     'coplanar envelope faces should be included in the result. Most coplanar '
     'edges in the envelope do not correspond to physical thermal bridges but edges '
@@ -331,7 +351,9 @@ def model_to_vis_set(
     'file contents. By default, it will be printed out to stdout',
     type=click.File('w'), default='-', show_default=True)
 def model_envelope_edges_to_vis_set_cli(
-        model_file, coplanar_type, mullion_thickness, output_format, output_file):
+    model_file, wall_modifier_json, coplanar_type, mullion_thickness,
+    output_format, output_file
+):
     """Translate a Dragonfly Model to a VisualizationSet with edges highlighted.
 
     \b
@@ -341,7 +363,9 @@ def model_envelope_edges_to_vis_set_cli(
     """
     try:
         model_envelope_edges_to_vis_set(
-            model_file, coplanar_type, mullion_thickness, output_format, output_file)
+            model_file, wall_modifier_json, coplanar_type, mullion_thickness,
+            output_format, output_file
+        )
     except Exception as e:
         _logger.exception('Failed to translate Model to VisualizationSet.\n{}'.format(e))
         sys.exit(1)
@@ -350,7 +374,8 @@ def model_envelope_edges_to_vis_set_cli(
 
 
 def model_envelope_edges_to_vis_set(
-    model_file, coplanar_type='FloorPlatesOnly', mullion_thickness=None,
+    model_file, wall_modifier_json=None,
+    coplanar_type='FloorPlatesOnly', mullion_thickness=None,
     output_format='vsf', output_file=None
 ):
     """Translate a Dragonfly Model to a VisualizationSet with edges highlighted.
@@ -358,6 +383,9 @@ def model_envelope_edges_to_vis_set(
     Args:
         model_file: Full path to a Dragonfly Model (DFJSON or DFpkl) file,
             which will have its envelope edges converted to a VisualizationSet.
+        wall_modifier_json: Optional path to a JSON file with an array of wall
+            modifier lines and/pr polygons that customize the properties of
+            walls across the model.
         coplanar_type: Text to indicate whether any edges between coplanar envelope
             faces should be included in the result. Most coplanar edges in the
             envelope do not correspond to real physical thermal bridges but edges
@@ -386,8 +414,14 @@ def model_envelope_edges_to_vis_set(
             file contents. If None, the string will simply be returned from
             this method.
     """
-    # load the model object
+    # load the model object and process the wall modifiers if present
     model = Model.from_file(model_file)
+    if wall_modifier_json:
+        with open(wall_modifier_json, 'r') as wmf:
+            wall_modifier_data = json.load(wmf)
+        wall_modifiers = model.deserialize_wall_modifiers(wall_modifier_data)
+        model.resolve_wall_properties(wall_modifiers)
+    # process the mullion thickness
     if mullion_thickness is not None:
         mullion_thickness = parse_distance_string(mullion_thickness, model.units)
     # create the VisualizationSet

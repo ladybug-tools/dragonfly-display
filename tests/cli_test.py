@@ -47,6 +47,23 @@ def test_model_to_vis_set():
     os.remove(output_vis)
 
 
+def test_model_to_vis_set_wall_modifiers():
+    """Test the model-to-vis command with a wall-modifier-json."""
+    input_model = './tests/json/wall_modifier_model.dfjson'
+    wall_modifier_data = './tests/json/wall_modifier_data.json'
+    output_vis = './tests/json/wall_modifier_model.html'
+    runner = CliRunner()
+    cmd_args = [
+        input_model, '--wall-modifier-json', wall_modifier_data,
+        '--output-format', 'html',
+        '--output-file', output_vis
+    ]
+    result = runner.invoke(model_to_vis_set_cli, cmd_args)
+    assert result.exit_code == 0
+    assert os.path.isfile(output_vis)
+    os.remove(output_vis)
+
+
 def test_model_envelope_edges_to_vis_set_shade_mesh():
     input_model = './tests/json/model_with_edges.dfjson'
     output_vis = './tests/json/model_with_edges.html'
