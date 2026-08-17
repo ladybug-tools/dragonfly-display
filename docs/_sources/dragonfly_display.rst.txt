@@ -1,0 +1,26 @@
+dragonfly\_display package
+==========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   dragonfly_display.cli
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   dragonfly_display.model
+
+Module contents
+---------------
+
+.. automodule:: dragonfly_display
+   :members:
+   :undoc-members:
+   :show-inheritance:
