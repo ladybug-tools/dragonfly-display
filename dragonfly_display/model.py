@@ -160,8 +160,8 @@ def model_envelope_edges_to_vis_set(
         -   Roofs_to_Walls -- A ContextGeometry for the envelope edges where
             roofs meet exterior walls (or exterior floors).
 
-        -   Slabs_to_Walls -- A ContextGeometry for the envelope edges where ground
-            floor slabs meet exterior walls (or roofs).
+        -   Slabs_On_Grade_to_Walls -- A ContextGeometry for the envelope edges
+            where ground floor slabs meet exterior walls (or roofs).
 
         -   Exposed_Floors_to_Walls -- A ContextGeometry for the envelope edges
             where exposed floors meet exterior walls.
