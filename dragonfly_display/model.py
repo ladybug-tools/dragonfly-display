@@ -1,11 +1,16 @@
 """Method to translate a Dragonfly Model to a VisualizationSet."""
 import math
 
-from ladybug_geometry.geometry3d import Vector3D, Point3D
+from ladybug_geometry.geometry3d import Vector3D, Point3D, Face3D
 from ladybug.color import Color
-from ladybug_display.geometry3d import DisplayLineSegment3D
+from ladybug_display.geometry3d import DisplayLineSegment3D, DisplayMesh3D
 from ladybug_display.visualization import ContextGeometry
+from honeybee.boundarycondition import boundary_conditions as bcs
+from honeybee.face import Face
+from dragonfly.windowparameter import DetailedWindows
+from dragonfly.context import ContextShade
 
+from honeybee_display.attr import RoomAttribute
 from honeybee_display.model import model_to_vis_set as hb_model_to_vis_set
 from honeybee_display.model import model_comparison_to_vis_set as \
     hb_model_comparison_to_vis_set
@@ -288,7 +293,7 @@ def model_comparison_to_vis_set(
             If None, a default blue color will be used. (Default: None).
         incoming_color: An optional ladybug Color to set the color of the incoming model.
             If None, a default red color will be used. (Default: None).
-            reset_coordinates: Boolean to note whether the coordinate system of the
+        reset_coordinates: Boolean to note whether the coordinate system of the
             model should be reset in the resulting visualization set such that
             the model sits at the origin. This is useful when the resulting
             visualization platform is meant to orbit around the world
@@ -315,3 +320,164 @@ def model_comparison_to_vis_set(
     # convert the Honeybee Model to a VisualizationSet
     return hb_model_comparison_to_vis_set(
         base_model, incoming_model, base_color, incoming_color)
+
+
+def model_opening_projection_to_vis_set(
+    base_df_model, openings_hb_model, wall_modifier_data=None,
+    projection_distance=0, angle_tolerance=None, exclude_existing_openings=True,
+    unmatched_color=None, overwritten_color=None, reset_coordinates=False
+):
+    """Translate s Dragonfly Model to a VisualizationSet that highlights projected openings.
+
+    Args:
+        base_df_model: A Dragonfly Model object for the base model to which orphaned
+            honeybee Apertures and Doors will be projected onto the Room2Ds.
+        openings_hb_model: A Honeybee Model object for the model containing orphaned
+            honeybee Apertures and Doors to be projected onto the Room2Ds of the
+            base_df_model.
+        wall_modifier_data: An optional array of wall modifier lines and/pr polygons
+            that customize the properties of walls across the model. When supplied,
+            these will be used to highlight any openings that were successfully
+            assigned to the Room2D but are overwritten by a wall modifiers,
+            essentially removing openings in order to assign a special boundary
+            condition or air boundary property. (Default: None).
+        projection_distance: An optional number to be used to project the
+            Aperture/Door geometry onto Room2D wall segments. If specified,
+            then openings within this distance of the parent wall will be
+            projected and added. Otherwise, if it is zero, Apertures/Doors
+            will only be added if they are coplanar with the Room2D wall
+            segment within the base_df_model tolerance.
+        angle_tolerance: The max angle difference in degrees that wall segments
+            and sub-faces can differ from one another in order for the sub-face
+            to be projected onto the geometry. If None, the angle tolerance
+            of the base_df_model will be used. (Default: None).
+        exclude_existing_openings: A boolean to note whether the existing openings
+            assigned to the Room2Ds of the base_df_model should be excluded in
+            the resulting visualization (so the visualization only highlights
+            the newly-added openings) or they should be included alongside
+            the newly-added openings. (Default: True).
+        unmatched_color: An optional ladybug Color to set the color of the openings
+            that were not successfully added to any Room2Ds in the base_df_model.
+            If None, a default red color will be used. (Default: None).
+        overwritten_color: An optional ladybug Color to set the color of the openings
+            that were successfully added to the Room2Ds but overwritten by the
+            wall_modifier_data. If None, a default bright green color will be
+            used. (Default: None).
+        reset_coordinates: Boolean to note whether the coordinate system of the
+            model should be reset in the resulting visualization set such that
+            the model sits at the origin. This is useful when the resulting
+            visualization platform is meant to orbit around the world
+            origin. (Default: False).
+    """
+    # ensure the model units and coordinate system are synced
+    if not openings_hb_model.units == base_df_model.units:
+        openings_hb_model.convert_to_units(base_df_model.units)
+    if base_df_model.reference_vector is not None:
+        openings_hb_model.move(base_df_model.reference_vector)
+
+    # add the openings of the HB model to the base DF one and track the unmatched ones
+    tol = base_df_model.tolerance
+    ang_tol = base_df_model.angle_tolerance if angle_tolerance is None else angle_tolerance
+    win_geo = openings_hb_model.apertures + openings_hb_model.doors
+    unassigned_dict = {geo.identifier: geo for geo in win_geo}
+    for room in base_df_model.room_2ds:
+        assigned_geo = room.assign_sub_faces(
+            win_geo, projection_distance,
+            overwrite=exclude_existing_openings,
+            tolerance=tol, angle_tolerance=ang_tol
+        )
+        if assigned_geo is not None:
+            for a_geo in assigned_geo:
+                unassigned_dict.pop(a_geo.identifier, None)
+
+    # collect shades assigned to the sub-faces so they can be displayed
+    for shd_grp in openings_hb_model.grouped_shades:
+        base_obj = shd_grp[0]
+        shd_geo = [s.geometry for s in shd_grp]
+        con_shade = ContextShade(base_obj.identifier, shd_geo, base_obj.is_detached)
+        base_df_model.add_context_shade(con_shade)
+
+    # if wall modifiers were supplied, apply them and track the overwritten window pars
+    overwritten_sub_faces = []
+    if wall_modifier_data is not None and len(wall_modifier_data) != 0:
+        wall_modifiers = base_df_model.deserialize_wall_modifiers(wall_modifier_data)
+        original_model = base_df_model.duplicate()
+        for story in base_df_model.stories:
+            try:
+                line_geometries, properties = wall_modifiers[story.identifier]
+            except KeyError:
+                continue  # no modifiers present for this story
+            story.modify_wall_properties(line_geometries, properties, tol)
+        for orig_room, final_room in zip(original_model.room_2ds, base_df_model.room_2ds):
+            zip_obj = zip(
+                orig_room.window_parameters,
+                final_room.window_parameters,
+                final_room.floor_segments
+            )
+            for o_wp, f_wp, seg in zip_obj:
+                if f_wp is None and o_wp is not None:
+                    if isinstance(o_wp, DetailedWindows):
+                        ext_vec = Vector3D(0, 0, orig_room.floor_to_ceiling_height)
+                        wall_f = Face('dummy', Face3D.from_extrusion(seg, ext_vec))
+                        wall_f.boundary_condition = bcs.outdoors
+                        o_wp.add_window_to_face(wall_f, tol)
+                        overwritten_sub_faces.extend(wall_f.sub_faces)
+
+    # reset the coordinate system for the final visualization if requested
+    if reset_coordinates:
+        min_pt, max_pt = base_df_model.min, base_df_model.max
+        z_val = base_df_model.average_height - base_df_model.average_height_above_ground
+        center = Point3D((max_pt.x + min_pt.x) / 2, (max_pt.y + min_pt.y) / 2, z_val)
+        base_df_model.reset_coordinate_system(center)
+        # move the geometry using a vector that is the inverse of the origin
+        ref_vec = Vector3D(-center.x, -center.y, -center.z)
+        for geo in unassigned_dict.values():
+            geo.move(ref_vec)
+        for geo in overwritten_sub_faces:
+            geo.move(ref_vec)
+
+    # create the Honeybee Model from the Dragonfly ones
+    hb_model = base_df_model.to_honeybee(
+        'District', exclude_plenums=False, solve_ceiling_adjacencies=False,
+        enforce_adj=False, enforce_solid=True
+    )[0]
+
+    # convert the Honeybee Model to a VisualizationSet
+    room_attrs = [RoomAttribute('Room Names', ['display_name'], False, True)]
+    vis_set = hb_model_to_vis_set(hb_model, color_by='None', room_attrs=room_attrs)
+
+    # collect the colored opening geometry to be added to the visualization set
+    ap_color = Color(64, 180, 255, 100)
+    dr_color = Color(160, 150, 100)
+    unmatched_color = Color(225, 0, 0) if unmatched_color is None else unmatched_color
+    overwritten_color = Color(0, 225, 0) if overwritten_color is None else overwritten_color
+    ap_geo = [
+        DisplayMesh3D(f.geometry.triangulated_mesh3d, color=ap_color)
+        for f in hb_model.apertures
+    ]
+    dr_geo = [
+        DisplayMesh3D(f.geometry.triangulated_mesh3d, color=dr_color)
+        for f in hb_model.doors
+    ]
+    unmatched_geo = [
+        DisplayMesh3D(f.geometry.triangulated_mesh3d, color=unmatched_color)
+        for f in unassigned_dict.values()
+    ]
+    overwritten_geo = [
+        DisplayMesh3D(f.geometry.triangulated_mesh3d, color=overwritten_color)
+        for f in overwritten_sub_faces
+    ]
+
+    # add the opening geometry to the visualization set as ContextGeometry
+    if len(ap_geo) != 0:
+        vis_set.add_geometry(ContextGeometry('Aperture', ap_geo))
+    if len(dr_geo) != 0:
+        vis_set.add_geometry(ContextGeometry('Door', dr_geo))
+    if len(unmatched_geo) != 0:
+        vis_set.add_geometry(ContextGeometry('Unmatched', unmatched_geo))
+    if len(overwritten_geo) != 0:
+        name = 'Overwritten by Boundary Conditions'
+        con_geo = ContextGeometry(name.replace(' ', '_'), overwritten_geo)
+        con_geo.display_name = name
+        vis_set.add_geometry(con_geo)
+    return vis_set

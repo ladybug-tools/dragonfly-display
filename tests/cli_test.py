@@ -5,7 +5,7 @@ from click.testing import CliRunner
 
 from ladybug.commandutil import run_command_function
 from dragonfly_display.cli import model_to_vis_set_cli, model_to_vis_set, \
-    model_envelope_edges_to_vis_set_cli, \
+    model_envelope_edges_to_vis_set_cli, model_opening_projection_to_vis_cli, \
     model_comparison_to_vis_set_cli, model_comparison_to_vis_set
 
 
@@ -106,3 +106,22 @@ def test_model_comparison_to_vis_set():
 
     assert isinstance(vtkjs_str, str)
     assert len(vtkjs_str) > 1000
+
+
+def test_model_opening_projection_to_vis_cli():
+    """Test the model_opening_projection_to_vis_cli function."""
+    base_model = './tests/json/model_for_openings.dfjson'
+    openings_model = './tests/json/openings.hbjson'
+    wall_modifiers = './tests/json/wall_modifiers_for_openings.json'
+    output_vis = './tests/json/openings.html'
+    runner = CliRunner()
+    cmd_args = [
+        base_model, openings_model, '--wall-modifier-json', wall_modifiers,
+        '--projection-distance', '1.5', '--angle-tolerance', '5',
+        '--output-format', 'html', '--output-file', output_vis
+    ]
+
+    result = runner.invoke(model_opening_projection_to_vis_cli, cmd_args)
+    assert result.exit_code == 0
+    assert os.path.isfile(output_vis)
+    os.remove(output_vis)

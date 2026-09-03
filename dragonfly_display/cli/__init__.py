@@ -11,6 +11,7 @@ import uuid
 
 from ladybug.color import Color
 from honeybee.units import parse_distance_string
+from honeybee.model import Model as HBModel
 from honeybee_display.attr import FaceAttribute, RoomAttribute
 
 from dragonfly.model import Model
@@ -488,10 +489,10 @@ def model_comparison_to_vis_set_cli(
 
     \b
     Args:
-        base_model_file: Full path to a Dragonfly Model (DFJSON or HBpkl) file
+        base_model_file: Full path to a Dragonfly Model (DFJSON or DFpkl) file
             representing the base model used in the comparison. Typically, this
             is the model with more data to be kept.
-        incoming_model_file: Full path to a Dragonfly Model (DFJSON or HBpkl) file
+        incoming_model_file: Full path to a Dragonfly Model (DFJSON or DFpkl) file
             representing the incoming model used in the comparison. Typically,
             this is the model with new data to be evaluated against the base model.
     """
@@ -521,20 +522,20 @@ def model_comparison_to_vis_set(
     output_format='vsf', output_file=None,
     multiplier=True, plenum=True, no_ceil_adjacency=True
 ):
-    """Translate two Honeybee Models to be compared to a VisualizationSet.
+    """Translate two Dragonfly Models to be compared to a VisualizationSet.
 
-    This command can also optionally translate the Honeybee Model to a .vtkjs file,
+    This command can also optionally translate the Dragonfly Model to a .vtkjs file,
     which can be visualized in the open source Visual ToolKit (VTK) platform.
 
     Args:
-        base_model_file: Full path to a Honeybee Model (HBJSON or HBpkl) file
+        base_model_file: Full path to a Dragonfly Model (DFJSON or DFpkl) file
             representing the base model used in the comparison. Typically, this
             is the model with more data to be kept.
-        incoming_model_file: Full path to a Honeybee Model (HBJSON or HBpkl) file
+        incoming_model_file: Full path to a Dragonfly Model (DFJSON or DFpkl) file
             representing the incoming model used in the comparison. Typically,
             this is the model with new data to be evaluated against the base model.
         full_geometry: Boolean to note if the multipliers on each Story should
-            be passed along to the generated Honeybee Room objects or if full
+            be passed along to the generated Dragonfly Room objects or if full
             geometry objects should be written for each story in the building.
         no_plenum: Boolean to indicate whether ceiling/floor plenum depths
             assigned to Room2Ds should generate distinct 3D Rooms in the
@@ -587,6 +588,170 @@ def model_comparison_to_vis_set(
     vis_set = base_model.to_vis_set_comparison(
         incoming_model, multiplier, no_plenum, ceil_adjacency, merge_method,
         base_color, incoming_color, reset_coordinates=reset_coordinates)
+
+    # output the VisualizationSet through the CLI
+    return _output_vis_set_to_format(vis_set, output_format, output_file)
+
+
+@display.command('model-opening-projection-to-vis')
+@click.argument('base-df-model-file', type=click.Path(
+    exists=True, file_okay=True, dir_okay=False, resolve_path=True))
+@click.argument('openings-hb-model-file', type=click.Path(
+    exists=True, file_okay=True, dir_okay=False, resolve_path=True))
+@click.option(
+    '--wall-modifier-json', '-wm', help='Optional path to a JSON file with an '
+    'array of wall modifier lines and/pr polygons that customize the properties '
+    'of walls across the model.', default=None, show_default=True,
+    type=click.Path(exists=True, file_okay=True, dir_okay=False, resolve_path=True))
+@click.option(
+    '--projection-distance', '-d', help='An optional number to be used to project the '
+    'Aperture/Door geometry onto Room2D wall segments. If specified, '
+    'then openings within this distance of the parent wall will be '
+    'projected and added. Otherwise, if it is zero, Apertures/Doors '
+    'will only be added if they are coplanar with the Room2D wall '
+    'segment within the base_df_model tolerance. This input can include the units '
+    'of the distance (eg. 1ft) or, if no units are provided, the value will be '
+    'interpreted in the dragonfly model units.',
+    type=str, default='0', show_default=True)
+@click.option(
+    '--angle-tolerance', '-a', help='The max angle difference in degrees that '
+    'wall segments and sub-faces can differ from one another in order for the '
+    'sub-face to be projected onto the geometry. If unspecified, the angle tolerance '
+    'of the base_df_model will be used.', type=float, default=None, show_default=True)
+@click.option(
+    '--exclude-existing-openings/--include-existing-openings', ' /-ie',
+    help='Flag to note whether the existing openings assigned to the Room2Ds of '
+    'the base_df_model should be excluded in the resulting visualization (so the '
+    'visualization only highlights the newly-added openings) or they should be '
+    'included alongside the newly-added openings.',
+    default=True, show_default=True)
+@click.option(
+    '--unmatched-color', '-uc', help='An optional hexadecimal code for the color '
+    'of unmatched openings.', type=str, default='#E10000', show_default=True)
+@click.option(
+    '--overwritten-color', '-hc', help='An optional hexadecimal code for the color '
+    'of  the openings that were successfully added to the Room2Ds but overwritten '
+    'by the --wall-modifier-json.', type=str, default='#00E100', show_default=True)
+@click.option(
+    '--output-format', '-of', help='Text for the output format of the resulting '
+    'VisualizationSet File (.vsf). Choose from: vsf, json, pkl, vtkjs, html. Note '
+    'that both vsf and json refer to the the JSON version of the VisualizationSet '
+    'file and the distinction between the two is only for help in coordinating file '
+    'extensions (since both .vsf and .json can be acceptable). Also note that '
+    'ladybug-vtk must be installed in order for the vtkjs or html options to be usable '
+    'and the html format refers to a web page with the vtkjs file embedded within it.',
+    type=str, default='vsf', show_default=True)
+@click.option(
+    '--output-file', help='Optional file to output the he string of the visualization '
+    'file contents. By default, it will be printed out to stdout',
+    type=click.File('w'), default='-', show_default=True)
+def model_opening_projection_to_vis_cli(
+    base_df_model_file, openings_hb_model_file, wall_modifier_json,
+    projection_distance, angle_tolerance, exclude_existing_openings,
+    unmatched_color, overwritten_color, output_format, output_file
+):
+    """Translate a Dragonfly Model to a VisualizationSet that highlights projected openings.
+
+    This command can also optionally translate the Dragonfly Model to a .vtkjs file,
+    which can be visualized in the open source Visual ToolKit (VTK) platform.
+
+    \b
+    Args:
+        base_df_model_file: Full path to a Dragonfly Model (DFJSON or DFpkl) file
+            for the base model to which orphaned honeybee Apertures and Doors
+            will be projected onto the Room2Ds.
+        openings_hb_model_file: Full path to a Honeybee Model (HBJSON or HBpkl) file
+            for the model containing orphaned honeybee Apertures and Doors to be
+            projected onto the Room2Ds of the base_df_model.
+    """
+    try:
+        # pass the input to the function in order to convert the model
+        include_existing_openings = not exclude_existing_openings
+        model_opening_projection_to_vis(
+            base_df_model_file, openings_hb_model_file, wall_modifier_json,
+            projection_distance, angle_tolerance, include_existing_openings,
+            unmatched_color, overwritten_color, output_format, output_file
+        )
+    except Exception as e:
+        _logger.exception('Failed to translate Model to VisualizationSet.\n{}'.format(e))
+        sys.exit(1)
+    else:
+        sys.exit(0)
+
+
+def model_opening_projection_to_vis(
+    base_df_model_file, openings_hb_model_file, wall_modifier_json=None,
+    projection_distance=0, angle_tolerance=None, include_existing_openings=False,
+    unmatched_color='#E10000', overwritten_color='#00E100',
+    output_format='vsf', output_file=None, exclude_existing_openings=True
+):
+    """Translate a Dragonfly Model to a VisualizationSet that highlights projected openings.
+
+    This command can also optionally translate the Honeybee Model to a .vtkjs file,
+    which can be visualized in the open source Visual ToolKit (VTK) platform.
+
+    Args:
+        base_df_model_file: Full path to a Dragonfly Model (DFJSON or DFpkl) file
+            for the base model to which orphaned honeybee Apertures and Doors
+            will be projected onto the Room2Ds.
+        openings_hb_model_file: Full path to a Honeybee Model (HBJSON or HBpkl) file
+            for the model containing orphaned honeybee Apertures and Doors to be
+            projected onto the Room2Ds of the base_df_model.
+        wall_modifier_json: Optional path to a JSON file with an array of wall
+            modifier lines and/pr polygons that customize the properties of
+            walls across the model.
+        projection_distance: An optional number to be used to project the
+            Aperture/Door geometry onto Room2D wall segments. If specified,
+            then openings within this distance of the parent wall will be
+            projected and added. Otherwise, if it is zero, Apertures/Doors
+            will only be added if they are coplanar with the Room2D wall
+            segment within the base_df_model tolerance.
+        angle_tolerance: The max angle difference in degrees that wall segments
+            and sub-faces can differ from one another in order for the sub-face
+            to be projected onto the geometry. If None, the angle tolerance
+            of the base_df_model will be used. (Default: None).
+        include_existing_openings: A boolean to note whether the existing openings
+            assigned to the Room2Ds of the base_df_model should be excluded in
+            the resulting visualization (so the visualization only highlights
+            the newly-added openings) or they should be included alongside
+            the newly-added openings. (Default: True).
+        unmatched_color: An optional ladybug Color to set the color of the openings
+            that were not successfully added to any Room2Ds in the base_df_model.
+            If None, a default red color will be used. (Default: None).
+        overwritten_color: An optional ladybug Color to set the color of the openings
+            that were successfully added to the Room2Ds but overwritten by the
+            wall_modifier_data. If None, a default bright green color will be
+            used. (Default: None).
+        output_format: Text for the output format of the resulting VisualizationSet
+            File (.vsf). Choose from: vsf, json, pkl, vtkjs, html. Note that both
+            vsf and json refer to the the JSON version of the VisualizationSet
+            file and the distinction between the two is only for help in
+            coordinating file extensions (since both .vsf and .json can be
+            acceptable). Also note that ladybug-vtk must be installed in order
+            for the vtkjs or html options to be usable and the html format
+            refers to a web page with the vtkjs file embedded within it.
+        output_file: Optional file to output the string of the visualization
+            file contents. If None, the string will simply be returned from
+            this method.
+    """
+    # load the model objects and process the colors from the hex codes
+    base_df_model = Model.from_file(base_df_model_file)
+    openings_hb_model = HBModel.from_file(openings_hb_model_file)
+    wall_modifier_data = None
+    if wall_modifier_json:
+        with open(wall_modifier_json, 'r') as wmf:
+            wall_modifier_data = json.load(wmf)
+    projection_distance = parse_distance_string(projection_distance, base_df_model.units)
+    unmatched_color = Color.from_hex(unmatched_color)
+    overwritten_color = Color.from_hex(overwritten_color)
+    exclude_existing_openings = not include_existing_openings
+    reset_coordinates = True if output_format.lower() in ('vtkjs', 'html') else False
+
+    # create the VisualizationSet
+    vis_set = base_df_model.to_vis_set_opening_projection(
+        openings_hb_model, wall_modifier_data,
+        projection_distance, angle_tolerance, exclude_existing_openings,
+        unmatched_color, overwritten_color, reset_coordinates=reset_coordinates)
 
     # output the VisualizationSet through the CLI
     return _output_vis_set_to_format(vis_set, output_format, output_file)
