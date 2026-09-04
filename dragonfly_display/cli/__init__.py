@@ -631,7 +631,7 @@ def model_comparison_to_vis_set(
 @click.option(
     '--overwritten-color', '-hc', help='An optional hexadecimal code for the color '
     'of  the openings that were successfully added to the Room2Ds but overwritten '
-    'by the --wall-modifier-json.', type=str, default='#00E100', show_default=True)
+    'by the --wall-modifier-json.', type=str, default='##FF00FF', show_default=True)
 @click.option(
     '--output-format', '-of', help='Text for the output format of the resulting '
     'VisualizationSet File (.vsf). Choose from: vsf, json, pkl, vtkjs, html. Note '
@@ -682,7 +682,7 @@ def model_opening_projection_to_vis_cli(
 def model_opening_projection_to_vis(
     base_df_model_file, openings_hb_model_file, wall_modifier_json=None,
     projection_distance=0, angle_tolerance=None, include_existing_openings=False,
-    unmatched_color='#E10000', overwritten_color='#00E100',
+    unmatched_color='#E10000', overwritten_color='#FF00FF',
     output_format='vsf', output_file=None, exclude_existing_openings=True
 ):
     """Translate a Dragonfly Model to a VisualizationSet that highlights projected openings.
@@ -720,7 +720,7 @@ def model_opening_projection_to_vis(
             If None, a default red color will be used. (Default: None).
         overwritten_color: An optional ladybug Color to set the color of the openings
             that were successfully added to the Room2Ds but overwritten by the
-            wall_modifier_data. If None, a default bright green color will be
+            wall_modifier_data. If None, a default magenta color will be
             used. (Default: None).
         output_format: Text for the output format of the resulting VisualizationSet
             File (.vsf). Choose from: vsf, json, pkl, vtkjs, html. Note that both

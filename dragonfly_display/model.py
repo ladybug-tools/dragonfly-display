@@ -361,7 +361,7 @@ def model_opening_projection_to_vis_set(
             If None, a default red color will be used. (Default: None).
         overwritten_color: An optional ladybug Color to set the color of the openings
             that were successfully added to the Room2Ds but overwritten by the
-            wall_modifier_data. If None, a default bright green color will be
+            wall_modifier_data. If None, a default magenta color will be
             used. (Default: None).
         reset_coordinates: Boolean to note whether the coordinate system of the
             model should be reset in the resulting visualization set such that
@@ -450,7 +450,7 @@ def model_opening_projection_to_vis_set(
     ap_color = Color(64, 180, 255, 100)
     dr_color = Color(160, 150, 100)
     unmatched_color = Color(225, 0, 0) if unmatched_color is None else unmatched_color
-    overwritten_color = Color(0, 225, 0) if overwritten_color is None else overwritten_color
+    overwritten_color = Color(225, 0, 225) if overwritten_color is None else overwritten_color
     ap_geo = [
         DisplayMesh3D(f.geometry.triangulated_mesh3d, color=ap_color)
         for f in hb_model.apertures

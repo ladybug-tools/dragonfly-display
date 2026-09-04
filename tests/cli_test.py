@@ -124,4 +124,4 @@ def test_model_opening_projection_to_vis_cli():
     result = runner.invoke(model_opening_projection_to_vis_cli, cmd_args)
     assert result.exit_code == 0
     assert os.path.isfile(output_vis)
-    os.remove(output_vis)
+    # os.remove(output_vis)
