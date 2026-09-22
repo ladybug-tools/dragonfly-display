@@ -1,0 +1,10 @@
+dragonfly\_display.cli package
+==============================
+
+Module contents
+---------------
+
+.. automodule:: dragonfly_display.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
