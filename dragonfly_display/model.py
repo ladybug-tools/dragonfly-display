@@ -444,7 +444,12 @@ def model_opening_projection_to_vis_set(
 
     # convert the Honeybee Model to a VisualizationSet
     room_attrs = [RoomAttribute('Room Names', ['display_name'], False, True)]
-    vis_set = hb_model_to_vis_set(hb_model, color_by='None', room_attrs=room_attrs)
+    vis_set = hb_model_to_vis_set(hb_model, hide_color_by=True, room_attrs=room_attrs)
+
+    # remove the geometries for apertures and doors
+    for i, geo in enumerate(vis_set.geometry):
+        if geo.identifier in ('Aperture', 'Door'):
+            vis_set.remove_geometry(i)
 
     # collect the colored opening geometry to be added to the visualization set
     ap_color = Color(64, 180, 255, 100)
@@ -470,14 +475,14 @@ def model_opening_projection_to_vis_set(
 
     # add the opening geometry to the visualization set as ContextGeometry
     if len(ap_geo) != 0:
-        vis_set.add_geometry(ContextGeometry('Aperture', ap_geo))
+        vis_set.add_geometry(ContextGeometry('Aperture', ap_geo), 0)
     if len(dr_geo) != 0:
-        vis_set.add_geometry(ContextGeometry('Door', dr_geo))
+        vis_set.add_geometry(ContextGeometry('Door', dr_geo), 0)
     if len(unmatched_geo) != 0:
-        vis_set.add_geometry(ContextGeometry('Unmatched', unmatched_geo))
+        vis_set.add_geometry(ContextGeometry('Unmatched', unmatched_geo), 0)
     if len(overwritten_geo) != 0:
         name = 'Overwritten by Boundary Conditions'
         con_geo = ContextGeometry(name.replace(' ', '_'), overwritten_geo)
         con_geo.display_name = name
-        vis_set.add_geometry(con_geo)
+        vis_set.add_geometry(con_geo, 0)
     return vis_set
